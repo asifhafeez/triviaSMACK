@@ -21,7 +21,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 
-import session.SessionSpeechlet;
+// import session.SessionSpeechlet;
 
 import com.amazon.speech.Sdk;
 import com.amazon.speech.speechlet.Speechlet;
@@ -85,7 +85,7 @@ public final class Launcher {
         context.setContextPath("/");
         server.setHandler(context);
         context.addServlet(new ServletHolder(createServlet(new HelloWorldSpeechlet())), "/hello");
-        context.addServlet(new ServletHolder(createServlet(new SessionSpeechlet())), "/session");
+        // context.addServlet(new ServletHolder(createServlet(new SessionSpeechlet())), "/session");
         server.start();
         server.join();
     }

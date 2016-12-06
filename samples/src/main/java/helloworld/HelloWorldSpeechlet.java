@@ -88,7 +88,7 @@ public class HelloWorldSpeechlet implements Speechlet {
         card.setContent(speechText);
 
         // Create the plain text output.
-        SsmlOutputSpeech speech = new SsmlOutputSpeech();
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
 
         // Create reprompt
@@ -104,7 +104,7 @@ public class HelloWorldSpeechlet implements Speechlet {
      * @return SpeechletResponse spoken and visual response for the given intent
      */
     private SpeechletResponse getHelloResponse() {
-        String speechText = "Whats the capital of England? Its England";
+        String speechText = "what is the capital of the UK? the answer is London";
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard();
@@ -112,8 +112,8 @@ public class HelloWorldSpeechlet implements Speechlet {
         card.setContent(speechText);
 
         // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
+        SsmlOutputSpeech speech = new SsmlOutputSpeech();
+        speech.setSsml("<speak>What is the capital of the UK?<break time='100ms'/> 10<break time='100ms'/> 9<break time='100ms'/> 8<break time='100ms'/> 7<break time='100ms'/> 6<break time='100ms'/> 5<break time='100ms'/> 4<break time='100ms'/> 3<break time='100ms'/> 2<break time='100ms'/> 1<break time='100ms'/> TIME'S UP! <break time='100ms'/> The answer is London</speak>");
 
         return SpeechletResponse.newTellResponse(speech, card);
     }
