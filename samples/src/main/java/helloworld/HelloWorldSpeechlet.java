@@ -22,6 +22,7 @@ import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
+import com.amazon.speech.ui.SsmlOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 
@@ -87,7 +88,7 @@ public class HelloWorldSpeechlet implements Speechlet {
         card.setContent(speechText);
 
         // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        SsmlOutputSpeech speech = new SsmlOutputSpeech();
         speech.setText(speechText);
 
         // Create reprompt
