@@ -103,7 +103,7 @@ public class HelloWorldSpeechlet implements Speechlet {
      * @return SpeechletResponse spoken and visual response for the given intent
      */
     private SpeechletResponse getHelloResponse() {
-        String speechText = "Whats the capital of England?";
+        String speechText = "Whats the capital of England? Its England";
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard();
