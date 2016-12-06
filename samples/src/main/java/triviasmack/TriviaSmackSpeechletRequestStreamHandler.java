@@ -7,7 +7,7 @@
 
     or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-package helloworld;
+package triviasmack;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,7 @@ import com.amazon.speech.speechlet.lambda.SpeechletRequestStreamHandler;
  * this project using the {@code lambda-compile} Ant task and upload the resulting zip file to power
  * your function.
  */
-public final class HelloWorldSpeechletRequestStreamHandler extends SpeechletRequestStreamHandler {
+public final class TriviaSmackSpeechletRequestStreamHandler extends SpeechletRequestStreamHandler {
     private static final Set<String> supportedApplicationIds = new HashSet<String>();
     static {
         /*
@@ -31,7 +31,7 @@ public final class HelloWorldSpeechletRequestStreamHandler extends SpeechletRequ
         supportedApplicationIds.add("amzn1.ask.skill.0aa0bdbf-5ca7-47d0-bfee-0ebd9b23a411");
     }
 
-    public HelloWorldSpeechletRequestStreamHandler() {
-        super(new HelloWorldSpeechlet(), supportedApplicationIds);
+    public TriviaSmackSpeechletRequestStreamHandler() {
+        super(new TriviaSmackSpeechlet(), supportedApplicationIds);
     }
 }
