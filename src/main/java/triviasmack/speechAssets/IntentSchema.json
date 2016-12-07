@@ -1,0 +1,10 @@
+{
+  "intents": [
+    {
+      "intent": "TriviaSmackIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}
