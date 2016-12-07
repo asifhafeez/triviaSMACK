@@ -103,20 +103,20 @@ public class TriviaSmackSpeechlet implements Speechlet {
      *
      * @return SpeechletResponse spoken and visual response for the given intent
      */
-    private SpeechletResponse getHelloResponse() {
-        String speechText = "Whats the capital of England? Its England";
+     private SpeechletResponse getHelloResponse() {
+       String speechText = "what is the capital of the UK? the answer is London";
 
-        // Create the Simple card content.
-        SimpleCard card = new SimpleCard();
-        card.setTitle("TriviaSmack");
-        card.setContent(speechText);
+       // Create the Simple card content.
+       SimpleCard card = new SimpleCard();
+       card.setTitle("HelloWorld");
+       card.setContent(speechText);
 
-        // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
+       // Create the Ssml output.
+       SsmlOutputSpeech speech = new SsmlOutputSpeech();
+       speech.setSsml("<speak>What is the capital of the UK?<break time='1s'/> 10<break time='1s'/> 9<break time='1s'/> 8<break time='1s'/> 7<break time='1s'/> 6<break time='1s'/> 5<break time='1s'/> 4<break time='1s'/> 3<break time='1s'/> 2<break time='1s'/> 1<break time='1s'/> TIME'S UP! <break time='1s'/> The answer is London</speak>");
 
-        return SpeechletResponse.newTellResponse(speech, card);
-    }
+       return SpeechletResponse.newTellResponse(speech, card);
+   }
 
     /**
      * Creates a {@code SpeechletResponse} for the help intent.
