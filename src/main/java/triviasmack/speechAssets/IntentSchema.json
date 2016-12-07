@@ -6,5 +6,8 @@
     {
       "intent": "AMAZON.HelpIntent"
     }
+    {
+      "intent": "AMAZON.RepeatIntent"
+    }
   ]
 }
