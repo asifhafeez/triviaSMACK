@@ -61,7 +61,10 @@ public class TriviaSmackSpeechlet implements Speechlet {
                 session.getSessionId());
     }
 
-
+    public String concatenate(String one, String two){
+      return one + two;
+    }
+    
     private SpeechletResponse getWelcomeResponse() {
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
 
