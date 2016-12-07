@@ -1,0 +1,12 @@
+TriviaSmackIntent start quiz
+TriviaSmackIntent say start quiz
+TriviaSmackIntent ask question
+TriviaSmackIntent begin quiz
+TriviaSmackIntent quiz
+TriviaSmackIntent questions
+TriviaSmackIntent I'm ready
+TriviaSmackIntent let's inject
+TriviaSmackIntent let's play
+TriviaSmackIntent play
+TriviaSmackIntent I want to play
+TriviaSmackIntent Smack me with some trivia
