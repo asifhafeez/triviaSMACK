@@ -7,7 +7,7 @@
 
     or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-package helloworld;
+package triviasmack;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +29,8 @@ import com.amazon.speech.ui.SimpleCard;
 /**
  * This sample shows how to create a simple speechlet for handling speechlet requests.
  */
-public class HelloWorldSpeechlet implements Speechlet {
-    private static final Logger log = LoggerFactory.getLogger(HelloWorldSpeechlet.class);
+public class TriviaSmackSpeechlet implements Speechlet {
+    private static final Logger log = LoggerFactory.getLogger(TriviaSmackSpeechlet.class);
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -57,7 +57,7 @@ public class HelloWorldSpeechlet implements Speechlet {
         Intent intent = request.getIntent();
         String intentName = (intent != null) ? intent.getName() : null;
 
-        if ("HelloWorldIntent".equals(intentName)) {
+        if ("TriviaSmackIntent".equals(intentName)) {
             return getHelloResponse();
         } else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
@@ -84,11 +84,11 @@ public class HelloWorldSpeechlet implements Speechlet {
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard();
-        card.setTitle("HelloWorld");
+        card.setTitle("TriviaSmack");
         card.setContent(speechText);
 
         // Create the plain text output.
-        SsmlOutputSpeech speech = new SsmlOutputSpeech();
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
 
         // Create reprompt
@@ -103,20 +103,20 @@ public class HelloWorldSpeechlet implements Speechlet {
      *
      * @return SpeechletResponse spoken and visual response for the given intent
      */
-    private SpeechletResponse getHelloResponse() {
-        String speechText = "Whats the capital of England? Its England";
+     private SpeechletResponse getHelloResponse() {
+       String speechText = "what is the capital of the UK? the answer is London";
 
-        // Create the Simple card content.
-        SimpleCard card = new SimpleCard();
-        card.setTitle("HelloWorld");
-        card.setContent(speechText);
+       // Create the Simple card content.
+       SimpleCard card = new SimpleCard();
+       card.setTitle("HelloWorld");
+       card.setContent(speechText);
 
-        // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
+       // Create the Ssml output.
+       SsmlOutputSpeech speech = new SsmlOutputSpeech();
+       speech.setSsml("<speak>What is the capital of the UK?<break time='1s'/> 10<break time='1s'/> 9<break time='1s'/> 8<break time='1s'/> 7<break time='1s'/> 6<break time='1s'/> 5<break time='1s'/> 4<break time='1s'/> 3<break time='1s'/> 2<break time='1s'/> 1<break time='1s'/> TIME'S UP! <break time='1s'/> The answer is London</speak>");
 
-        return SpeechletResponse.newTellResponse(speech, card);
-    }
+       return SpeechletResponse.newTellResponse(speech, card);
+   }
 
     /**
      * Creates a {@code SpeechletResponse} for the help intent.
@@ -128,7 +128,7 @@ public class HelloWorldSpeechlet implements Speechlet {
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard();
-        card.setTitle("HelloWorld");
+        card.setTitle("TriviaSmack");
         card.setContent(speechText);
 
         // Create the plain text output.
