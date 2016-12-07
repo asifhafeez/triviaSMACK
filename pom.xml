@@ -24,7 +24,6 @@
   </dependency>
   </dependencies>
   <build>
-    <defaultGoal>test</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
