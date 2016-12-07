@@ -65,9 +65,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
     private SpeechletResponse getWelcomeResponse() {
         String speechText = "Welcome to Trivia Smack, your gateway quiz";
 
-        SimpleCard card = new SimpleCard();
-        card.setTitle("TriviaSmack");
-        card.setContent(speechText);
+
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
@@ -75,30 +73,23 @@ public class TriviaSmackSpeechlet implements Speechlet {
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(speech);
 
-        return SpeechletResponse.newAskResponse(speech, reprompt, card);
+        return SpeechletResponse.newAskResponse(speech, reprompt);
     }
 
    
      private SpeechletResponse getQuizResponse() {
        String speechText = "what is the capital of the UK? the answer is London";
 
-       SimpleCard card = new SimpleCard();
-       card.setTitle("TriviaSmack");
-       card.setContent(speechText);
-
        SsmlOutputSpeech speech = new SsmlOutputSpeech();
        speech.setSsml("<speak>What is the capital of the UK?<break time='1s'/> 10<break time='1s'/> 9<break time='1s'/> 8<break time='1s'/> 7<break time='1s'/> 6<break time='1s'/> 5<break time='1s'/> 4<break time='1s'/> 3<break time='1s'/> 2<break time='1s'/> 1<break time='1s'/> TIME'S UP! <break time='1s'/> The answer is London</speak>");
 
-       return SpeechletResponse.newTellResponse(speech, card);
+       return SpeechletResponse.newTellResponse(speech);
    }
 
     
     private SpeechletResponse getHelpResponse() {
         String speechText = "You can ask me to start a quiz!";
 
-        SimpleCard card = new SimpleCard();
-        card.setTitle("TriviaSmack");
-        card.setContent(speechText);
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
@@ -106,6 +97,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(speech);
 
-        return SpeechletResponse.newAskResponse(speech, reprompt, card);
+        return SpeechletResponse.newAskResponse(speech, reprompt);
     }
 }
