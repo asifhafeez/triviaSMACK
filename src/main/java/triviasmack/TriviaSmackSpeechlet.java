@@ -63,8 +63,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
 
     private SpeechletResponse getWelcomeResponse() {
-        String speechText = "Welcome to Trivia Smack, your gateway quiz";
-
+        String speechText = "Welcome to Trivia Smack, your gateway quiz!";
 
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
@@ -78,7 +77,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
    
      private SpeechletResponse getQuizResponse() {
-       String speechText = "what is the capital of the UK? the answer is London";
 
        SsmlOutputSpeech speech = new SsmlOutputSpeech();
        speech.setSsml("<speak>What is the capital of the UK?<break time='1s'/> 10<break time='1s'/> 9<break time='1s'/> 8<break time='1s'/> 7<break time='1s'/> 6<break time='1s'/> 5<break time='1s'/> 4<break time='1s'/> 3<break time='1s'/> 2<break time='1s'/> 1<break time='1s'/> TIME'S UP! <break time='1s'/> The answer is London</speak>");
