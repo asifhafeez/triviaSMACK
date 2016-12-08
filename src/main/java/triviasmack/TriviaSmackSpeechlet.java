@@ -46,9 +46,11 @@ public class TriviaSmackSpeechlet implements Speechlet {
         String intentName = (intent != null) ? intent.getName() : null;
 
         if ("TriviaSmackIntent".equals(intentName)) {
-            return getQuizResponse();
+            return getQuizResponse(session);
         } else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
+        } else if ("AMAZON.RepeatIntent".equals(intentName)) {
+            return getRepeatResponse(intent, session);
         } else {
             throw new SpeechletException("Invalid Intent");
         }
@@ -61,11 +63,15 @@ public class TriviaSmackSpeechlet implements Speechlet {
                 session.getSessionId());
     }
 
+    public String concatenate(String one, String two){
+      return one + two;
+    }
 
     private SpeechletResponse getWelcomeResponse() {
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
 
 
+        // Create the plain text output.
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
 
@@ -75,16 +81,40 @@ public class TriviaSmackSpeechlet implements Speechlet {
         return SpeechletResponse.newAskResponse(speech, reprompt);
     }
 
-   
-     private SpeechletResponse getQuizResponse() {
 
+    /**
+     * Creates a {@code SpeechletResponse} for the hello intent.
+     *
+     * @return SpeechletResponse spoken and visual response for the given intent
+     */
+
+     private SpeechletResponse getQuizResponse(final Session session) {
        SsmlOutputSpeech speech = new SsmlOutputSpeech();
-       speech.setSsml("<speak>What is the capital of the UK?<break time='1s'/> 10<break time='1s'/> 9<break time='1s'/> 8<break time='1s'/> 7<break time='1s'/> 6<break time='1s'/> 5<break time='1s'/> 4<break time='1s'/> 3<break time='1s'/> 2<break time='1s'/> 1<break time='1s'/> TIME'S UP! <break time='1s'/> The answer is London</speak>");
+       speech.setSsml("<speak>What is the capital of the UK?<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP! <break time='50ms'/> The answer is London</speak>");
 
-       return SpeechletResponse.newTellResponse(speech);
+       session.setAttribute("question", speech);
+
+       Reprompt reprompt = new Reprompt();
+       reprompt.setOutputSpeech(speech);
+
+       return SpeechletResponse.newAskResponse(speech, reprompt);
    }
 
-    
+    private SpeechletResponse getRepeatResponse(Intent intent, Session session) {
+      System.out.println("TEST TEST TEST");
+    //  SsmlOutputSpeech speech = new SsmlOutputSpeech();
+    //  speech.setSsml("<speak>What is the capital of the UK?<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP! <break time='50ms'/> The answer is London</speak>");
+    //
+    //  SsmlOutputSpeech speech = new SsmlOutputSpeech();
+    //  speech.setSsml(session);
+     SsmlOutputSpeech speech = (SsmlOutputSpeech) session.getAttribute("question");
+
+     Reprompt reprompt = new Reprompt();
+     reprompt.setOutputSpeech(speech);
+
+     return SpeechletResponse.newAskResponse(speech, reprompt);
+ }
+
     private SpeechletResponse getHelpResponse() {
         String speechText = "You can ask me to start a quiz!";
 
