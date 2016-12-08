@@ -105,8 +105,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
    }
 
     private SpeechletResponse getRepeatResponse(Intent intent, Session session) {
-      System.out.println("TEST TEST TEST");
-
      SsmlOutputSpeech speech = (SsmlOutputSpeech) session.getAttribute("question");
 
      Reprompt reprompt = new Reprompt();
