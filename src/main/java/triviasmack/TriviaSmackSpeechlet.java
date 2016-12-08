@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazon.speech.slu.Intent;
+import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
 import com.amazon.speech.speechlet.Session;
@@ -20,7 +21,6 @@ import com.amazon.speech.ui.SimpleCard;
 
 public class TriviaSmackSpeechlet implements Speechlet {
     private static final Logger log = LoggerFactory.getLogger(TriviaSmackSpeechlet.class);
-
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
@@ -43,10 +43,17 @@ public class TriviaSmackSpeechlet implements Speechlet {
                 session.getSessionId());
 
         Intent intent = request.getIntent();
+
         String intentName = (intent != null) ? intent.getName() : null;
 
         if ("TriviaSmackIntent".equals(intentName)) {
-            return getQuizResponse();
+            Slot answerSlot = intent.getSlot("Answer");
+            String answerValue = answerSlot.getValue();
+            if (answerSlot != null && answerValue != null) {
+                return getAnswerResponse(intent);
+            } else {
+                return getQuestionResponse();
+            }
         } else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
         } else {
@@ -63,6 +70,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
 
     private SpeechletResponse getWelcomeResponse() {
+
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
 
 
@@ -76,12 +84,48 @@ public class TriviaSmackSpeechlet implements Speechlet {
     }
 
    
-     private SpeechletResponse getQuizResponse() {
+     private SpeechletResponse getQuestionResponse() {
 
        SsmlOutputSpeech speech = new SsmlOutputSpeech();
-       speech.setSsml("<speak>What is the capital of the UK?<break time='1s'/> 10<break time='1s'/> 9<break time='1s'/> 8<break time='1s'/> 7<break time='1s'/> 6<break time='1s'/> 5<break time='1s'/> 4<break time='1s'/> 3<break time='1s'/> 2<break time='1s'/> 1<break time='1s'/> TIME'S UP! <break time='1s'/> The answer is London</speak>");
+       speech.setSsml("<speak>What is the capital of the UK?<break time='1s'/> 5<break time='1s'/> 4<break time='1s'/> 3<break time='1s'/> 2<break time='1s'/> 1<break time='1s'/> TIME'S UP!");
 
        return SpeechletResponse.newTellResponse(speech);
+   }
+
+   private SpeechletResponse getAnswerResponse(final Intent intent) {
+        Slot answerSlot = intent.getSlot("Answer");
+        String answerValue = answerSlot.getValue();
+        String realAnswerValue = answerValue.toLowerCase();
+        if (answerSlot != null && answerValue != null) {
+            String answer = "london";
+            if (answer.equals(realAnswerValue)) {
+                String speechText = "The answer is London. You are correct!";
+
+                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                speech.setText(speechText);
+
+                Reprompt reprompt = new Reprompt();
+                reprompt.setOutputSpeech(speech);
+
+                return SpeechletResponse.newTellResponse(speech);
+            } else {
+                String speechText = "The answer is London. You are wrong";
+
+                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                speech.setText(speechText);
+
+                return SpeechletResponse.newTellResponse(speech);
+         }
+     } else {
+                String speechText = "Nothing received";
+
+                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                speech.setText(speechText);
+
+                return SpeechletResponse.newTellResponse(speech);
+     }
+
+
    }
 
     

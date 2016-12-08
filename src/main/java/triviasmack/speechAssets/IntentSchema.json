@@ -1,7 +1,13 @@
 {
   "intents": [
     {
-      "intent": "TriviaSmackIntent"
+      "intent": "TriviaSmackIntent", 
+      "slots": [
+      {
+        "name": "Answer",
+        "type": "LIST_OF_ANSWERS"
+        }
+        ]
     },
     {
       "intent": "AMAZON.HelpIntent"
