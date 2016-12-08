@@ -10,3 +10,4 @@ TriviaSmackIntent let's play
 TriviaSmackIntent play
 TriviaSmackIntent I want to play
 TriviaSmackIntent Smack me with some trivia
+TriviaSmackIntent the answer is {Answer}

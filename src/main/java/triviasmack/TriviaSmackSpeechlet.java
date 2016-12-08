@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazon.speech.slu.Intent;
+import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
 import com.amazon.speech.speechlet.Session;
@@ -20,7 +21,6 @@ import com.amazon.speech.ui.SimpleCard;
 
 public class TriviaSmackSpeechlet implements Speechlet {
     private static final Logger log = LoggerFactory.getLogger(TriviaSmackSpeechlet.class);
-
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
@@ -43,17 +43,24 @@ public class TriviaSmackSpeechlet implements Speechlet {
                 session.getSessionId());
 
         Intent intent = request.getIntent();
+
         String intentName = (intent != null) ? intent.getName() : null;
 
         if ("TriviaSmackIntent".equals(intentName)) {
-            return getQuizResponse(session);
-        } else if ("AMAZON.HelpIntent".equals(intentName)) {
-            return getHelpResponse();
-        } else if ("AMAZON.RepeatIntent".equals(intentName)) {
-            return getRepeatResponse(intent, session);
-        } else {
-            throw new SpeechletException("Invalid Intent");
-        }
+            Slot answerSlot = intent.getSlot("Answer");
+            String answerValue = answerSlot.getValue();
+            if (answerSlot != null && answerValue != null) {
+                return getAnswerResponse(intent);
+            } else {
+                return getQuestionResponse(session);
+            }
+          } else if ("AMAZON.HelpIntent".equals(intentName)) {
+              return getHelpResponse();
+          } else if ("AMAZON.RepeatIntent".equals(intentName)) {
+              return getRepeatResponse(intent, session);
+          } else {
+              throw new SpeechletException("Invalid Intent");
+          }
     }
 
     @Override
@@ -68,6 +75,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse getWelcomeResponse() {
+
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
 
 
@@ -82,14 +90,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
     }
 
 
-    /**
-     * Creates a {@code SpeechletResponse} for the hello intent.
-     *
-     * @return SpeechletResponse spoken and visual response for the given intent
-     */
-
-     private SpeechletResponse getQuizResponse(final Session session) {
+     private SpeechletResponse getQuestionResponse(final Session session) {
        SsmlOutputSpeech speech = new SsmlOutputSpeech();
+
        speech.setSsml("<speak>What is the capital of the UK?<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP! <break time='50ms'/> The answer is London</speak>");
 
        session.setAttribute("question", speech);
@@ -97,16 +100,13 @@ public class TriviaSmackSpeechlet implements Speechlet {
        Reprompt reprompt = new Reprompt();
        reprompt.setOutputSpeech(speech);
 
+
        return SpeechletResponse.newAskResponse(speech, reprompt);
    }
 
     private SpeechletResponse getRepeatResponse(Intent intent, Session session) {
       System.out.println("TEST TEST TEST");
-    //  SsmlOutputSpeech speech = new SsmlOutputSpeech();
-    //  speech.setSsml("<speak>What is the capital of the UK?<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP! <break time='50ms'/> The answer is London</speak>");
-    //
-    //  SsmlOutputSpeech speech = new SsmlOutputSpeech();
-    //  speech.setSsml(session);
+
      SsmlOutputSpeech speech = (SsmlOutputSpeech) session.getAttribute("question");
 
      Reprompt reprompt = new Reprompt();
@@ -114,6 +114,43 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
+
+   private SpeechletResponse getAnswerResponse(final Intent intent) {
+        Slot answerSlot = intent.getSlot("Answer");
+        String answerValue = answerSlot.getValue();
+        String realAnswerValue = answerValue.toLowerCase();
+        if (answerSlot != null && answerValue != null) {
+            String answer = "london";
+            if (answer.equals(realAnswerValue)) {
+                String speechText = "The answer is London. You are correct!";
+
+                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                speech.setText(speechText);
+
+                Reprompt reprompt = new Reprompt();
+                reprompt.setOutputSpeech(speech);
+
+                return SpeechletResponse.newTellResponse(speech);
+            } else {
+                String speechText = "The answer is London. You are wrong";
+
+                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                speech.setText(speechText);
+
+                return SpeechletResponse.newTellResponse(speech);
+         }
+     } else {
+                String speechText = "Nothing received";
+
+                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                speech.setText(speechText);
+
+                return SpeechletResponse.newTellResponse(speech);
+     }
+
+
+   }
+
 
     private SpeechletResponse getHelpResponse() {
         String speechText = "You can ask me to start a quiz!";
