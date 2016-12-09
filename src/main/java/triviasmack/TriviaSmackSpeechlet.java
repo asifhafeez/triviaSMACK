@@ -22,6 +22,7 @@ import com.amazon.speech.ui.SimpleCard;
 public class TriviaSmackSpeechlet implements Speechlet {
 
   AnswerHandler answerHandler = new AnswerHandler();
+
     private static final Logger log = LoggerFactory.getLogger(TriviaSmackSpeechlet.class);
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -47,14 +48,13 @@ public class TriviaSmackSpeechlet implements Speechlet {
         Intent intent = request.getIntent();
 
         String intentName = (intent != null) ? intent.getName() : null;
-        AnswerHandler answerHandler = new AnswerHandler();
         if ("TriviaSmackIntent".equals(intentName)) {
             Slot answerSlot = intent.getSlot("Answer");
             String answerValue = answerSlot.getValue();
             if (answerSlot != null && answerValue != null) {
                 return getAnswerResponse(intent);
             } else {
-                return answerHandler.getQuestionResponse(session);
+                return getQuestionResponse(session);
             }
           } else if ("AMAZON.HelpIntent".equals(intentName)) {
               return getHelpResponse();
@@ -91,6 +91,19 @@ public class TriviaSmackSpeechlet implements Speechlet {
         return SpeechletResponse.newAskResponse(speech, reprompt);
     }
 
+    private SpeechletResponse getQuestionResponse(final Session session) {
+     String question = answerHandler.setQuestion();
+     SsmlOutputSpeech speech = new SsmlOutputSpeech();
+     speech.setSsml(question);
+
+     session.setAttribute("question", speech);
+
+     Reprompt reprompt = new Reprompt();
+     reprompt.setOutputSpeech(speech);
+
+
+     return SpeechletResponse.newAskResponse(speech, reprompt);
+   }
 
 
     private SpeechletResponse getRepeatResponse(Intent intent, Session session) {
