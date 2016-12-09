@@ -26,7 +26,7 @@ public class AnswerHandler {
     if (answer.equals(correctAnswer)) {
           return "The answer is London. You are correct!";
          } else {
-          return "The answer is London. You are wrong";
+          return "The answer is London. You are incorrect";
       }
   }
 
