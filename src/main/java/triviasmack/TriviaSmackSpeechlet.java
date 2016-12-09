@@ -50,7 +50,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
             Slot answerSlot = intent.getSlot("Answer");
             String answerValue = answerSlot.getValue();
             if (answerSlot != null && answerValue != null) {
-                return getAnswerResponse(intent);
+                return answerHandler.getAnswerResponse(intent);
             } else {
                 return answerHandler.getQuestionResponse(session);
             }
@@ -100,41 +100,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
-   private SpeechletResponse getAnswerResponse(final Intent intent) {
-        Slot answerSlot = intent.getSlot("Answer");
-        String answerValue = answerSlot.getValue();
-        String realAnswerValue = answerValue.toLowerCase();
-        if (answerSlot != null && answerValue != null) {
-            String answer = "london";
-            if (answer.equals(realAnswerValue)) {
-                String speechText = "The answer is London. You are correct!";
-
-                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-                speech.setText(speechText);
-
-                Reprompt reprompt = new Reprompt();
-                reprompt.setOutputSpeech(speech);
-
-                return SpeechletResponse.newTellResponse(speech);
-            } else {
-                String speechText = "The answer is London. You are wrong";
-
-                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-                speech.setText(speechText);
-
-                return SpeechletResponse.newTellResponse(speech);
-         }
-     } else {
-                String speechText = "Nothing received";
-
-                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-                speech.setText(speechText);
-
-                return SpeechletResponse.newTellResponse(speech);
-     }
-
-
-   }
 
 
     private SpeechletResponse getHelpResponse() {
