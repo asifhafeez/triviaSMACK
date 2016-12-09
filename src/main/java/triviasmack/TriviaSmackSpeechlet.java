@@ -20,6 +20,8 @@ import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 
 public class TriviaSmackSpeechlet implements Speechlet {
+
+  AnswerHandler answerHandler = new AnswerHandler();
     private static final Logger log = LoggerFactory.getLogger(TriviaSmackSpeechlet.class);
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -50,7 +52,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
             Slot answerSlot = intent.getSlot("Answer");
             String answerValue = answerSlot.getValue();
             if (answerSlot != null && answerValue != null) {
-                return answerHandler.getAnswerResponse(intent);
+                return getAnswerResponse(intent);
             } else {
                 return answerHandler.getQuestionResponse(session);
             }
@@ -99,6 +101,25 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
+
+ public SpeechletResponse getAnswerResponse(final Intent intent) {
+     Slot answerSlot = intent.getSlot("Answer");
+     String answerValue = answerSlot.getValue();
+     String realAnswerValue = answerValue.toLowerCase();
+     String speechText = "";
+     if (answerSlot != null)
+       {
+         speechText = answerHandler.checkIfCorrect(realAnswerValue); 
+      } else {
+         speechText = "Nothing received";
+      }
+         
+       PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+       speech.setText(speechText);
+
+       return SpeechletResponse.newTellResponse(speech);
+
+  }
 
 
 

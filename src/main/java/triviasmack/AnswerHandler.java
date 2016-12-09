@@ -20,6 +20,17 @@ import com.amazon.speech.ui.SimpleCard;
 
 public class AnswerHandler {
   //@Override
+
+  public String checkIfCorrect(final String answer) {
+    String correctAnswer = "london";
+
+    if (answer.equals(correctAnswer)) {
+          return "The answer is London. You are correct!";
+         } else {
+          return "The answer is London. You are wrong";
+      }
+  }
+
  public SpeechletResponse getQuestionResponse(final Session session) {
   SsmlOutputSpeech speech = new SsmlOutputSpeech();
 
@@ -34,39 +45,7 @@ public class AnswerHandler {
   return SpeechletResponse.newAskResponse(speech, reprompt);
 }
 //@Override
-public SpeechletResponse getAnswerResponse(final Intent intent) {
-     Slot answerSlot = intent.getSlot("Answer");
-     String answerValue = answerSlot.getValue();
-     String realAnswerValue = answerValue.toLowerCase();
-     if (answerSlot != null && answerValue != null) {
-         String answer = "london";
-         if (answer.equals(realAnswerValue)) {
-             String speechText = "The answer is London. You are correct!";
 
-             PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-             speech.setText(speechText);
-
-             Reprompt reprompt = new Reprompt();
-             reprompt.setOutputSpeech(speech);
-
-             return SpeechletResponse.newTellResponse(speech);
-         } else {
-             String speechText = "The answer is London. You are wrong";
-
-             PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-             speech.setText(speechText);
-
-             return SpeechletResponse.newTellResponse(speech);
-      }
-  } else {
-             String speechText = "Nothing received";
-
-             PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-             speech.setText(speechText);
-
-             return SpeechletResponse.newTellResponse(speech);
-           }
-  }
   //
   // public void onSessionEnded(final SessionEndedRequest request, final Session session)
   //         throws SpeechletException {
