@@ -1,9 +1,6 @@
 
 package triviasmack;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.IntentRequest;
@@ -18,32 +15,28 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SsmlOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
+import java.util.logging.Logger;
+
 
 public class TriviaSmackSpeechlet implements Speechlet {
+  private final static Logger log = Logger.getLogger(TriviaSmackSpeechlet.class.getName());
+  AnswerHandler answerHandler = new AnswerHandler();
 
-    AnswerHandler answerHandler = new AnswerHandler();
-
-    private static final Logger log = LoggerFactory.getLogger(TriviaSmackSpeechlet.class);
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
-        log.info("onSessionStarted requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
+      
     }
 
     @Override
     public SpeechletResponse onLaunch(final LaunchRequest request, final Session session)
             throws SpeechletException {
-        log.info("onLaunch requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
         return getWelcomeResponse();
     }
 
     @Override
     public SpeechletResponse onIntent(final IntentRequest request, final Session session)
             throws SpeechletException {
-        log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
 
         Intent intent = request.getIntent();
 
@@ -52,7 +45,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
             Slot answerSlot = intent.getSlot("Answer");
             String answerValue = answerSlot.getValue();
             if (answerSlot != null && answerValue != null) {
-                return answerHandler.getAnswerResponse(intent);
+                return getAnswerResponse(intent);
             } else {
                 return getQuestionResponse(session);
             }
@@ -68,14 +61,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
     @Override
     public void onSessionEnded(final SessionEndedRequest request, final Session session)
             throws SpeechletException {
-        log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
     }
-
-    public String concatenate(String one, String two){
-      return one + two;
-    }
-
+    
     private SpeechletResponse getWelcomeResponse() {
 
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
@@ -114,6 +101,25 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
+
+ public SpeechletResponse getAnswerResponse(final Intent intent) {
+     Slot answerSlot = intent.getSlot("Answer");
+     String answerValue = answerSlot.getValue();
+     String realAnswerValue = answerValue.toLowerCase();
+     String speechText = "";
+     if (answerSlot != null)
+       {
+         speechText = answerHandler.checkIfCorrect(realAnswerValue); 
+      } else {
+         speechText = "Nothing received";
+      }
+         
+       PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+       speech.setText(speechText);
+
+       return SpeechletResponse.newTellResponse(speech);
+
+  }
 
 
 
