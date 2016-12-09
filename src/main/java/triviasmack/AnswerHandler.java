@@ -19,21 +19,13 @@ import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 
 public class AnswerHandler {
-  //@Override
- public SpeechletResponse getQuestionResponse(final Session session) {
-  SsmlOutputSpeech speech = new SsmlOutputSpeech();
 
-  speech.setSsml("<speak>What is the capital of the UK?<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP! <break time='50ms'/> The answer is London</speak>");
-
-  session.setAttribute("question", speech);
-
-  Reprompt reprompt = new Reprompt();
-  reprompt.setOutputSpeech(speech);
-
-
-  return SpeechletResponse.newAskResponse(speech, reprompt);
+public String setQuestion(){
+  String question = "<speak>What is the capital of the UK?<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP! <break time='50ms'/> The answer is London</speak>";
+  return question;
 }
-//@Override
+
+
 public SpeechletResponse getAnswerResponse(final Intent intent) {
      Slot answerSlot = intent.getSlot("Answer");
      String answerValue = answerSlot.getValue();
@@ -67,10 +59,5 @@ public SpeechletResponse getAnswerResponse(final Intent intent) {
              return SpeechletResponse.newTellResponse(speech);
            }
   }
-  //
-  // public void onSessionEnded(final SessionEndedRequest request, final Session session)
-  //         throws SpeechletException {
-  //     log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
-  //             session.getSessionId());
-  // }
+
 }
