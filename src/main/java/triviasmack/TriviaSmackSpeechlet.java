@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class TriviaSmackSpeechlet implements Speechlet {
   private final static Logger log = Logger.getLogger(TriviaSmackSpeechlet.class.getName());
   AnswerHandler answerHandler = new AnswerHandler();
+  TeamSetup teamSetup = new TeamSetup();
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -49,6 +50,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
             } else {
                 return getQuestionResponse(session);
             }
+          } else if ("GameSetupIntent".equals(intentName)) {
+            return getSetupResponse(session);
           } else if ("AMAZON.HelpIntent".equals(intentName)) {
               return getHelpResponse();
           } else if ("AMAZON.RepeatIntent".equals(intentName)) {
@@ -77,6 +80,18 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
         return SpeechletResponse.newAskResponse(speech, reprompt);
     }
+
+    private SpeechletResponse getSetupResponse(final Session session)
+          throws SpeechletException {
+          String speechText = teamSetup.setupIntroduction();
+          PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+          speech.setText(speechText);
+
+          Reprompt reprompt = new Reprompt();
+          reprompt.setOutputSpeech(speech);
+
+          return SpeechletResponse.newAskResponse(speech, reprompt);
+          }
 
     private SpeechletResponse getQuestionResponse(final Session session) {
      String question = answerHandler.setQuestion();

@@ -1,4 +1,6 @@
-TriviaSmackIntent start quiz
+GameSetupIntent setup game
+GameSetupIntent add players
+GameSetupIntent add teams
 TriviaSmackIntent say start quiz
 TriviaSmackIntent ask question
 TriviaSmackIntent begin quiz

@@ -1,6 +1,9 @@
 {
   "intents": [
     {
+      "intent": "GameSetupIntent"
+    },
+    {
       "intent": "TriviaSmackIntent", 
       "slots": [
       {
@@ -11,9 +14,6 @@
     },
     {
       "intent": "AMAZON.HelpIntent"
-    },
-    {
-      "intent": "AMAZON.RepeatIntent"
     }
   ]
 }
