@@ -45,14 +45,14 @@ public class TriviaSmackSpeechlet implements Speechlet {
         Intent intent = request.getIntent();
 
         String intentName = (intent != null) ? intent.getName() : null;
-
+        AnswerHandler answerHandler = new AnswerHandler();
         if ("TriviaSmackIntent".equals(intentName)) {
             Slot answerSlot = intent.getSlot("Answer");
             String answerValue = answerSlot.getValue();
             if (answerSlot != null && answerValue != null) {
                 return getAnswerResponse(intent);
             } else {
-                return getQuestionResponse(session);
+                return answerHandler.getQuestionResponse(session);
             }
           } else if ("AMAZON.HelpIntent".equals(intentName)) {
               return getHelpResponse();
@@ -90,19 +90,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
     }
 
 
-     private SpeechletResponse getQuestionResponse(final Session session) {
-       SsmlOutputSpeech speech = new SsmlOutputSpeech();
-
-       speech.setSsml("<speak>What is the capital of the UK?<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP! <break time='50ms'/> The answer is London</speak>");
-
-       session.setAttribute("question", speech);
-
-       Reprompt reprompt = new Reprompt();
-       reprompt.setOutputSpeech(speech);
-
-
-       return SpeechletResponse.newAskResponse(speech, reprompt);
-   }
 
     private SpeechletResponse getRepeatResponse(Intent intent, Session session) {
      SsmlOutputSpeech speech = (SsmlOutputSpeech) session.getAttribute("question");
