@@ -1,7 +1,17 @@
 {
   "intents": [
     {
-      "intent": "GameSetupIntent"
+      "intent": "GameSetupIntent",
+      "slots": [
+      {
+        "name": "TeamOne",
+        "type": "LIST_OF_TEAMS"
+        },
+      {
+        "name": "TeamTwo", 
+        "type": "LIST_OF_TEAMS"
+      }
+        ]
     },
     {
       "intent": "TriviaSmackIntent", 

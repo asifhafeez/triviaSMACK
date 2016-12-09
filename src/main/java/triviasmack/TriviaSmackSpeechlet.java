@@ -51,7 +51,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
                 return getQuestionResponse(session);
             }
           } else if ("GameSetupIntent".equals(intentName)) {
-            return getSetupResponse(session);
+            return getSetupResponse(intent, session);
           } else if ("AMAZON.HelpIntent".equals(intentName)) {
               return getHelpResponse();
           } else if ("AMAZON.RepeatIntent".equals(intentName)) {
@@ -81,8 +81,12 @@ public class TriviaSmackSpeechlet implements Speechlet {
         return SpeechletResponse.newAskResponse(speech, reprompt);
     }
 
-    private SpeechletResponse getSetupResponse(final Session session)
-          throws SpeechletException {
+    private SpeechletResponse getSetupResponse(Intent intent, Session session)
+        {
+          Slot teamNameSlot = intent.getSlot("TeamOne");
+          String teamNameValue = teamNameSlot.getValue();
+          String realTeamNameValue = teamNameValue.toLowerCase();
+          session.setAttribute("TeamOneName", teamNameValue.toLowerCase());
           String speechText = teamSetup.setupIntroduction();
           PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
           speech.setText(speechText);
