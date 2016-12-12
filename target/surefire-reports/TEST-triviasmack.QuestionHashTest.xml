@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="1" name="triviasmack.QuestionHashTest" time="0.024" errors="0" skipped="0">
+<testsuite tests="2" failures="1" name="triviasmack.QuestionHashTest" time="0.016" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib"/>
@@ -63,7 +63,7 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="triviasmack.QuestionHashTest" name="testRandomQuestion" time="0.024">
+  <testcase classname="triviasmack.QuestionHashTest" name="testRandomQuestion" time="0.015">
     <failure message="expected:&lt;[What is the capital of England]?&gt; but was:&lt;[How old is Miquita Oliver]?&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[What is the capital of England]?&gt; but was:&lt;[How old is Miquita Oliver]?&gt;
 	at org.junit.Assert.assertEquals(Assert.java:115)
 	at org.junit.Assert.assertEquals(Assert.java:144)
@@ -98,7 +98,6 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </failure>
-    <system-out>How old is Miquita Oliver?
-</system-out>
   </testcase>
+  <testcase classname="triviasmack.QuestionHashTest" name="testGetAnswer" time="0.001"/>
 </testsuite>

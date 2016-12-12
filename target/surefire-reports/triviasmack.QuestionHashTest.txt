@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: triviasmack.QuestionHashTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.145 sec <<< FAILURE!
-testRandomQuestion(triviasmack.QuestionHashTest)  Time elapsed: 0.024 sec  <<< FAILURE!
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.121 sec <<< FAILURE!
+testRandomQuestion(triviasmack.QuestionHashTest)  Time elapsed: 0.015 sec  <<< FAILURE!
 org.junit.ComparisonFailure: expected:<[What is the capital of England]?> but was:<[How old is Miquita Oliver]?>
 	at org.junit.Assert.assertEquals(Assert.java:115)
 	at org.junit.Assert.assertEquals(Assert.java:144)
