@@ -101,6 +101,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
           if(teamOneNameSlot != null && teamOneNameValue != null) {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
               System.out.println("teamtwo");
+              teamOneName = session.getAttribute("TeamOneName").toString();
               teamTwoName = session.getAttribute("TeamTwoName").toString();
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
             }

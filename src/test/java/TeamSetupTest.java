@@ -8,13 +8,13 @@ public class TeamSetupTest {
   @Test
   public void teamOneNameTest() {
     TeamSetup teamSetup = new TeamSetup();
-    assertEquals("Game setup. What is the name of team one?", teamSetup.setupTeams(null, null));
+    assertEquals("Game setup. What is the name of team one?", teamSetup.setupTeams("", ""));
   }
 
-  @Test 
+  @Test
   public void teamTwoNameTest() {
     TeamSetup teamSetup = new TeamSetup();
-    assertEquals("What is the name of team two?", teamSetup.setupTeams("pandas", null));
+    assertEquals("What is the name of team two?", teamSetup.setupTeams("pandas", ""));
   }
 
   @Test
