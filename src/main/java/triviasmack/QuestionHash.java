@@ -1,16 +1,12 @@
-public class Hashtable {
+public class Questions {
 
 public static void main(String args[]) {
 
-  Hashmap<Integer, String> hmap = new HashMap<Integer, String>();
+  HashMap<String, String> questions = new HashMap<String, String>();
 
 questions.put("How old is Miquita Oliver?", "Thirty two");
 questions.put("What is the capital of England?", "London");
 
-return questions
-System.out.println
-}
-
-public createTable
-
+return questions;
+System.out.println(questions);
 }
