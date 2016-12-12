@@ -130,7 +130,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
      session.setAttribute("question", speech);
 
      Reprompt reprompt = new Reprompt();
-     reprompt.setOutputSpeech(speech);
+     PlainTextOutputSpeech repromptQuestionSpeech = new PlainTextOutputSpeech();
+     repromptQuestionSpeech.setText("Don't forget to answer. Your question was " + speech);
+     reprompt.setOutputSpeech(repromptQuestionSpeech);
 
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
@@ -157,10 +159,16 @@ public class TriviaSmackSpeechlet implements Speechlet {
       } else {
          speechText = "Nothing received";
       }
+
        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
        speech.setText(speechText);
 
-       return SpeechletResponse.newTellResponse(speech);
+       Reprompt reprompt = new Reprompt();
+       PlainTextOutputSpeech repromptAnswerSpeech = new PlainTextOutputSpeech();
+       repromptAnswerSpeech.setText("To get the next question, say Alexa, next question");
+       reprompt.setOutputSpeech(repromptAnswerSpeech);
+
+       return SpeechletResponse.newAskResponse(speech, reprompt);
   }
 
 
