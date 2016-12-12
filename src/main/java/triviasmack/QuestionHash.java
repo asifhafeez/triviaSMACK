@@ -26,6 +26,9 @@ String randomQuestion = "";
      questions.put("What person am I thinking of?", "Frankie");
      questions.put("Which Ford played Indiana Jones and Han Solo", "Harrison");
      questions.put("According to Justin Bieber, what might it be too late to say?", "Sorry");
+     questions.put("What is Frankie Bell's favourite drink?", "Sambuka");
+     questions.put("The duke of what was voted the fourteenth greatest Briton of all time?", "Wellington");
+
 
      return questions;
   }
@@ -43,10 +46,13 @@ String randomQuestion = "";
     questionsAsArray.add("What person am I thinking of?");
     questionsAsArray.add("Which Ford played Indiana Jones and Han Solo");
     questionsAsArray.add("According to Justin Bieber, what might it be too late to say");
-
+    questionsAsArray.add("What is Frankie Bell's favourite drink?");
+    questionsAsArray.add("The duke of what was voted the fourteenth greatest Briton of all time?");
 
     Random random = new Random();
-    randomQuestion = questionsAsArray.get(random.nextInt(questionsAsArray.size()));
+    int questionNumber = random.nextInt(questionsAsArray.size());
+    randomQuestion = questionsAsArray.get(questionNumber);
+    questionsAsArray.remove(questionNumber);
     return randomQuestion;
   };
 
