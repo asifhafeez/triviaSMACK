@@ -1,7 +1,20 @@
 {
   "intents": [
     {
-      "intent": "TriviaSmackIntent", 
+      "intent": "GameSetupIntent",
+      "slots": [
+      {
+        "name": "TeamOne",
+        "type": "LIST_OF_TEAMS"
+        },
+      {
+        "name": "TeamTwo",
+        "type": "LIST_OF_TEAMS"
+      }
+        ]
+    },
+    {
+      "intent": "TriviaSmackIntent",
       "slots": [
       {
         "name": "Answer",
@@ -10,10 +23,10 @@
         ]
     },
     {
-      "intent": "AMAZON.HelpIntent"
+      "intent": "FailedIntent"
     },
     {
-      "intent": "AMAZON.RepeatIntent"
+      "intent": "AMAZON.HelpIntent"
     }
   ]
 }

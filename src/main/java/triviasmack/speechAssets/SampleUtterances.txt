@@ -1,4 +1,8 @@
-TriviaSmackIntent start quiz
+GameSetupIntent setup game
+GameSetupIntent add players
+GameSetupIntent add teams
+GameSetupIntent team one name is {TeamOne}
+GameSetupIntent team two name is {TeamTwo}
 TriviaSmackIntent say start quiz
 TriviaSmackIntent ask question
 TriviaSmackIntent begin quiz
@@ -11,3 +15,28 @@ TriviaSmackIntent play
 TriviaSmackIntent I want to play
 TriviaSmackIntent Smack me with some trivia
 TriviaSmackIntent the answer is {Answer}
+FailedIntent hello
+FailedIntent bye
+FailedIntent penguin
+FailedIntent cavern
+FailedIntent carpet
+FailedIntent I don't like you alexa
+FailedIntent grizzly bear
+FailedIntent puffin
+FailedIntent mallard duck
+FailedIntent tufted duck
+FailedIntent ruddy duck
+FailedIntent crested grebe
+FailedIntent coot
+FailedIntent moorhen
+FailedIntent mandarin duck
+FailedIntent scaup
+FailedIntent goldeneye duck
+FailedIntent wood duck
+FailedIntent swan
+FailedIntent goose
+FailedIntent geese
+FailedIntent blahblahblah
+FailedIntent blah
+FailedIntent meh
+FailedIntent I don't know what you want from me Alexa

@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class TriviaSmackSpeechlet implements Speechlet {
   private final static Logger log = Logger.getLogger(TriviaSmackSpeechlet.class.getName());
   AnswerHandler answerHandler = new AnswerHandler();
+  TeamSetup teamSetup = new TeamSetup();
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -39,9 +40,11 @@ public class TriviaSmackSpeechlet implements Speechlet {
             throws SpeechletException {
 
         Intent intent = request.getIntent();
-
         String intentName = (intent != null) ? intent.getName() : null;
-        if ("TriviaSmackIntent".equals(intentName)) {
+        if ("FailedIntent".equals(intentName)) {
+          return incorrectUtterance(session);
+        }
+        else if ("TriviaSmackIntent".equals(intentName)) {
             Slot answerSlot = intent.getSlot("Answer");
             String answerValue = answerSlot.getValue();
             if (answerSlot != null && answerValue != null) {
@@ -49,6 +52,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
             } else {
                 return getQuestionResponse(session);
             }
+          } else if ("GameSetupIntent".equals(intentName)) {
+            return getSetupResponse(intent, session);
           } else if ("AMAZON.HelpIntent".equals(intentName)) {
               return getHelpResponse();
           } else if ("AMAZON.RepeatIntent".equals(intentName)) {
@@ -77,6 +82,45 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
         return SpeechletResponse.newAskResponse(speech, reprompt);
     }
+
+    private SpeechletResponse getSetupResponse(Intent intent, Session session)
+        {
+          Slot teamOneNameSlot = intent.getSlot("TeamOne");
+          Slot teamTwoNameSlot = intent.getSlot("TeamTwo");
+          String teamOneNameValue = teamOneNameSlot.getValue();
+          String teamTwoNameValue = teamTwoNameSlot.getValue();
+          String speechText = "";
+          Object teamOneAttribute = session.getAttribute("TeamOneName");
+          Object teamTwoAttribute = session.getAttribute("TeamTwoName");
+          String teamOneName = "";
+          String teamTwoName = "";
+          System.out.println(teamOneAttribute);
+          if (teamOneAttribute == null) {
+            session.setAttribute("TeamOneName", teamOneNameValue);
+          }
+          System.out.println(teamOneAttribute);
+          session.setAttribute("TeamTwoName", teamTwoNameValue);
+
+          if(session.getAttribute("TeamOneName") != null) {
+            if(teamTwoNameSlot != null && teamTwoNameValue != null) {
+              teamOneName = session.getAttribute("TeamOneName").toString();
+              teamTwoName = session.getAttribute("TeamTwoName").toString();
+              speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
+            }
+            else {
+              teamOneName = session.getAttribute("TeamOneName").toString();
+              speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
+            }
+          } else {
+            speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
+          }
+          PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+          speech.setText(speechText);
+
+          Reprompt reprompt = new Reprompt();
+          reprompt.setOutputSpeech(speech);
+          return SpeechletResponse.newAskResponse(speech, reprompt);
+          }
 
     private SpeechletResponse getQuestionResponse(final Session session) {
      String question = answerHandler.setQuestion();
@@ -125,9 +169,20 @@ public class TriviaSmackSpeechlet implements Speechlet {
        reprompt.setOutputSpeech(repromptAnswerSpeech);
 
        return SpeechletResponse.newAskResponse(speech, reprompt);
-
   }
 
+
+    private SpeechletResponse incorrectUtterance(Session session) {
+      String speechText = "TriviaSmack says no.";
+
+      PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+      speech.setText(speechText);
+
+      Reprompt reprompt = new Reprompt();
+      reprompt.setOutputSpeech(speech);
+
+      return SpeechletResponse.newAskResponse(speech, reprompt);
+    }
 
 
     private SpeechletResponse getHelpResponse() {
