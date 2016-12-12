@@ -83,36 +83,33 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
     private SpeechletResponse getSetupResponse(Intent intent, Session session)
         {
-          System.out.println("hello0");
           Slot teamOneNameSlot = intent.getSlot("TeamOne");
           Slot teamTwoNameSlot = intent.getSlot("TeamTwo");
-          System.out.println("wtf");
           String teamOneNameValue = teamOneNameSlot.getValue();
           String teamTwoNameValue = teamTwoNameSlot.getValue();
-          System.out.println("whyyy");
           String speechText = "";
-          System.out.println("hello1");
-          session.setAttribute("TeamOneName", teamOneNameValue);
-          session.setAttribute("TeamTwoName", teamTwoNameValue);
-          System.out.println("hello2");
+          Object teamOneAttribute = session.getAttribute("TeamOneName");
+          Object teamTwoAttribute = session.getAttribute("TeamTwoName");
           String teamOneName = "";
           String teamTwoName = "";
-          System.out.println("hello3");
-          if(teamOneNameSlot != null && teamOneNameValue != null) {
+          System.out.println(teamOneAttribute);
+          if (teamOneAttribute == null) {
+            session.setAttribute("TeamOneName", teamOneNameValue);
+          }
+          System.out.println(teamOneAttribute);
+          session.setAttribute("TeamTwoName", teamTwoNameValue);
+          
+          if(session.getAttribute("TeamOneName") != null) {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
-              System.out.println("teamtwo");
               teamOneName = session.getAttribute("TeamOneName").toString();
               teamTwoName = session.getAttribute("TeamTwoName").toString();
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
             }
             else {
-              System.out.println("teamone");
               teamOneName = session.getAttribute("TeamOneName").toString();
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
             }
           } else {
-            System.out.println("noteams");
-            System.out.println(teamSetup.setupTeams(teamOneName, teamTwoName));
             speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
           }
           PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
@@ -120,7 +117,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
           Reprompt reprompt = new Reprompt();
           reprompt.setOutputSpeech(speech);
-          System.out.println("hello4");
           return SpeechletResponse.newAskResponse(speech, reprompt);
           }
 
