@@ -20,21 +20,29 @@ import com.amazon.speech.ui.SimpleCard;
 
 public class AnswerHandler {
 
- QuestionHash questions = new QuestionHash();
+QuestionHash questionHash = new QuestionHash();
+String chosenQuestion = "";
+String randomAnswer = "";
+
+
+  public String setQuestion(){
+    chosenQuestion = questionHash.randomQuestion();
+    String question = "<speak>" + chosenQuestion + "<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP!</speak>";
+    return question;
+  }
+
+
 
   public String checkIfCorrect(final String answer) {
-    String correctAnswer = "london";
+    randomAnswer = questionHash.getAnswer(chosenQuestion);
+    String correctAnswer = randomAnswer;
 
     if (answer.equals(correctAnswer)) {
-          return "The answer is London. You are correct!";
+          return "The answer is " + randomAnswer + ". You are correct!";
          } else {
-          return "The answer is London. You are incorrect";
+          return "The answer is " + randomAnswer + ". You are incorrect!";
       }
   }
 
-  public String setQuestion(){
-    String question = "<speak>What is the capital of the UK?<break time='50ms'/> 10<break time='50ms'/> 9<break time='50ms'/> 8<break time='50ms'/> 7<break time='50ms'/> 6<break time='50ms'/> 5<break time='50ms'/> 4<break time='50ms'/> 3<break time='50ms'/> 2<break time='50ms'/> 1<break time='50ms'/> TIME'S UP! <break time='50ms'/> The answer is London</speak>";
-    return question;
-  }
 
 }

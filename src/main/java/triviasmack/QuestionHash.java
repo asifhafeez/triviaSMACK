@@ -14,7 +14,7 @@ String randomQuestion = "";
 
 // public static void main(String args[]) {
 //     }
-
+  //
   public HashMap getQuestions(){
      questions.put("How old is Miquita Oliver?", "Thirty two");
      questions.put("What is the capital of England?", "London");
@@ -32,9 +32,10 @@ String randomQuestion = "";
   };
 
   public String getAnswer(final String randomQuestion){
+    getQuestions();
     String answer = questions.get(randomQuestion);
     return answer;
   }
- 
+
 
 }
