@@ -40,9 +40,11 @@ public class TriviaSmackSpeechlet implements Speechlet {
             throws SpeechletException {
 
         Intent intent = request.getIntent();
-
         String intentName = (intent != null) ? intent.getName() : null;
-        if ("TriviaSmackIntent".equals(intentName)) {
+        if ("FailedIntent".equals(intentName)) {
+          return incorrectUtterance(session);
+        }
+        else if ("TriviaSmackIntent".equals(intentName)) {
             Slot answerSlot = intent.getSlot("Answer");
             String answerValue = answerSlot.getValue();
             if (answerSlot != null && answerValue != null) {
@@ -98,7 +100,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
           }
           System.out.println(teamOneAttribute);
           session.setAttribute("TeamTwoName", teamTwoNameValue);
-          
+
           if(session.getAttribute("TeamOneName") != null) {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
               teamOneName = session.getAttribute("TeamOneName").toString();
@@ -161,6 +163,18 @@ public class TriviaSmackSpeechlet implements Speechlet {
        return SpeechletResponse.newTellResponse(speech);
   }
 
+
+    private SpeechletResponse incorrectUtterance(Session session) {
+      String speechText = "TriviaSmack says no.";
+
+      PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+      speech.setText(speechText);
+
+      Reprompt reprompt = new Reprompt();
+      reprompt.setOutputSpeech(speech);
+
+      return SpeechletResponse.newAskResponse(speech, reprompt);
+    }
 
 
     private SpeechletResponse getHelpResponse() {

@@ -8,19 +8,22 @@
         "type": "LIST_OF_TEAMS"
         },
       {
-        "name": "TeamTwo", 
+        "name": "TeamTwo",
         "type": "LIST_OF_TEAMS"
       }
         ]
     },
     {
-      "intent": "TriviaSmackIntent", 
+      "intent": "TriviaSmackIntent",
       "slots": [
       {
         "name": "Answer",
         "type": "LIST_OF_ANSWERS"
         }
         ]
+    },
+    {
+      "intent": "FailedIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"
