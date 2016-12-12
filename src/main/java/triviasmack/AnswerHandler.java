@@ -35,7 +35,7 @@ String randomAnswer = "";
 
   public String checkIfCorrect(final String answer) {
     randomAnswer = questionHash.getAnswer(chosenQuestion);
-    String correctAnswer = randomAnswer;
+    String correctAnswer = randomAnswer.toLowerCase();
 
     if (answer.equals(correctAnswer)) {
           return "The answer is " + randomAnswer + ". You are correct!";

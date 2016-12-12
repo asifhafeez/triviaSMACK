@@ -25,7 +25,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
-      
+
     }
 
     @Override
@@ -62,7 +62,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
     public void onSessionEnded(final SessionEndedRequest request, final Session session)
             throws SpeechletException {
     }
-    
+
     private SpeechletResponse getWelcomeResponse() {
 
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
@@ -86,7 +86,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
      session.setAttribute("question", speech);
 
      Reprompt reprompt = new Reprompt();
-     reprompt.setOutputSpeech(speech);
+     PlainTextOutputSpeech repromptQuestionSpeech = new PlainTextOutputSpeech();
+     repromptQuestionSpeech.setText("Sorry I didn't catch that, please start your response with Alexa, the answer is.");
+     reprompt.setOutputSpeech(repromptQuestionSpeech);
 
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
@@ -109,15 +111,18 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String speechText = "";
      if (answerSlot != null)
        {
-         speechText = answerHandler.checkIfCorrect(realAnswerValue); 
+         speechText = answerHandler.checkIfCorrect(realAnswerValue);
       } else {
          speechText = "Nothing received";
       }
-         
+
        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
        speech.setText(speechText);
 
-       return SpeechletResponse.newTellResponse(speech);
+       Reprompt reprompt = new Reprompt();
+       reprompt.setOutputSpeech(speech);
+
+       return SpeechletResponse.newAskResponse(speech, reprompt);
 
   }
 

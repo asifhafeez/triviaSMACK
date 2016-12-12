@@ -16,7 +16,7 @@ String randomQuestion = "";
 //     }
   //
   public HashMap getQuestions(){
-     questions.put("How old is Miquita Oliver?", "Thirty two");
+     questions.put("What won the oscar for best picture in ninteen ninety seven?", "Titanic");
      questions.put("What is the capital of England?", "London");
      return questions;
   }
@@ -24,7 +24,7 @@ String randomQuestion = "";
 
   public String randomQuestion() {
     ArrayList<String> questionsAsArray = new ArrayList<String>();
-    questionsAsArray.add("How old is Miquita Oliver?");
+    questionsAsArray.add("What won the oscar for best picture in ninteen ninety seven?");
     questionsAsArray.add("What is the capital of England?");
     Random random = new Random();
     randomQuestion = questionsAsArray.get(random.nextInt(questionsAsArray.size()));
