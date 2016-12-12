@@ -1,6 +1,8 @@
 GameSetupIntent setup game
 GameSetupIntent add players
 GameSetupIntent add teams
+GameSetupIntent team one name is {TeamOne}
+GameSetupIntent team two name is {TeamTwo}
 TriviaSmackIntent say start quiz
 TriviaSmackIntent ask question
 TriviaSmackIntent begin quiz

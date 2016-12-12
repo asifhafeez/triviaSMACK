@@ -83,11 +83,27 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
     private SpeechletResponse getSetupResponse(Intent intent, Session session)
         {
-          Slot teamNameSlot = intent.getSlot("TeamOne");
-          String teamNameValue = teamNameSlot.getValue();
-          String realTeamNameValue = teamNameValue.toLowerCase();
-          session.setAttribute("TeamOneName", teamNameValue.toLowerCase());
-          String speechText = teamSetup.setupIntroduction();
+          Slot teamOneNameSlot = intent.getSlot("TeamOne");
+          Slot teamTwoNameSlot = intent.getSlot("TeamTwo");
+          String teamOneNameValue = teamOneNameSlot.getValue();
+          String teamTwoNameValue = teamTwoNameSlot.getValue();
+          String speechText = "";
+          if(teamOneNameSlot != null) {
+            if(teamTwoNameSlot != null) {
+              session.setAttribute("TeamTwoName", teamTwoNameValue);
+              String teamOneName = session.getAttribute("TeamOneName").toString();
+              String teamTwoName = session.getAttribute("TeamTwoName").toString();
+              speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
+            } 
+            else {
+              session.setAttribute("TeamOneName", teamOneNameValue);
+              String teamOneName = session.getAttribute("TeamOneName").toString();
+              String teamTwoName = session.getAttribute("TeamTwoName").toString();
+              speechText = "Team one name is " + teamOneName + teamSetup.setupTeams(teamOneName, teamTwoName);
+            }
+          } else {
+            speechText = teamSetup.setupTeams(teamOneNameValue, teamTwoNameValue);
+          }
           PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
           speech.setText(speechText);
 
@@ -132,12 +148,10 @@ public class TriviaSmackSpeechlet implements Speechlet {
       } else {
          speechText = "Nothing received";
       }
-         
        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
        speech.setText(speechText);
 
        return SpeechletResponse.newTellResponse(speech);
-
   }
 
 
