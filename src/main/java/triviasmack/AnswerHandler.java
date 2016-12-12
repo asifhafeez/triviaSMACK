@@ -20,7 +20,7 @@ import com.amazon.speech.ui.SimpleCard;
 
 public class AnswerHandler {
 
- Questions questions = new Questions();
+ QuestionHash questions = new QuestionHash();
 
   public String checkIfCorrect(final String answer) {
     String correctAnswer = "london";

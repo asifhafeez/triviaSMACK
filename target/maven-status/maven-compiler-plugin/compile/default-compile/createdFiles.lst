@@ -1,3 +1,4 @@
 triviasmack/AnswerHandler.class
 triviasmack/TriviaSmackSpeechlet.class
 triviasmack/TriviaSmackSpeechletRequestStreamHandler.class
+triviasmack/QuestionHash.class
