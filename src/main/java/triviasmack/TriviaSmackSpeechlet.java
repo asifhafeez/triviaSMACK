@@ -87,7 +87,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
      Reprompt reprompt = new Reprompt();
      PlainTextOutputSpeech repromptQuestionSpeech = new PlainTextOutputSpeech();
-     repromptQuestionSpeech.setText("Sorry I didn't catch that, please start your response with Alexa, the answer is.");
+     repromptQuestionSpeech.setText("Don't forget to answer. Your question was " + speech);
      reprompt.setOutputSpeech(repromptQuestionSpeech);
 
 
@@ -120,7 +120,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
        speech.setText(speechText);
 
        Reprompt reprompt = new Reprompt();
-       reprompt.setOutputSpeech(speech);
+       PlainTextOutputSpeech repromptAnswerSpeech = new PlainTextOutputSpeech();
+       repromptAnswerSpeech.setText("To get the next question, say Alexa, next question");
+       reprompt.setOutputSpeech(repromptAnswerSpeech);
 
        return SpeechletResponse.newAskResponse(speech, reprompt);
 
