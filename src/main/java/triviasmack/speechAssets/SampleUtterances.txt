@@ -1,8 +1,64 @@
 GameSetupIntent setup game
 GameSetupIntent add players
 GameSetupIntent add teams
+GameSetupIntent begin groups
+GameSetupIntent begin player
+GameSetupIntent begin players
+GameSetupIntent begin team
+GameSetupIntent begin teams
+GameSetupIntent begin the groups
+GameSetupIntent begin the player
+GameSetupIntent begin the players
+GameSetupIntent begin the team
+GameSetupIntent begin the teams
+GameSetupIntent set up groups
+GameSetupIntent set up player
+GameSetupIntent set up players
+GameSetupIntent set up team
+GameSetupIntent set up teams
+GameSetupIntent set up the groups
+GameSetupIntent set up the player
+GameSetupIntent set up the players
+GameSetupIntent set up the team
+GameSetupIntent set up the teams
+GameSetupIntent setup groups
+GameSetupIntent setup player
+GameSetupIntent setup players
+GameSetupIntent setup team
+GameSetupIntent setup teams
+GameSetupIntent setup the groups
+GameSetupIntent setup the player
+GameSetupIntent setup the players
+GameSetupIntent setup the team
+GameSetupIntent setup the teams
+GameSetupIntent start groups
+GameSetupIntent start player
+GameSetupIntent start players
+GameSetupIntent start team
+GameSetupIntent start teams
+GameSetupIntent start the groups
+GameSetupIntent start the player
+GameSetupIntent start the players
+GameSetupIntent start the team
+GameSetupIntent start the teams
+GameSetupIntent add groups
+GameSetupIntent add player
+GameSetupIntent add players
+GameSetupIntent add team
+GameSetupIntent add teams
+GameSetupIntent add the groups
+GameSetupIntent add the player
+GameSetupIntent add the players
+GameSetupIntent add the team
+GameSetupIntent add the teams
+GameSetupIntent team one name {TeamOne}
 GameSetupIntent team one name is {TeamOne}
+GameSetupIntent team one is {TeamOne}
+GameSetupIntent team one {TeamOne}
 GameSetupIntent team two name is {TeamTwo}
+GameSetupIntent team two name {TeamTwo}
+GameSetupIntent team two is {TeamTwo}
+GameSetupIntent team two {TeamTwo}
 TriviaSmackIntent hit me with questions
 TriviaSmackIntent hit me with some questions
 TriviaSmackIntent hit me with some trivia
