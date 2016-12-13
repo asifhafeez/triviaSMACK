@@ -52,7 +52,7 @@ String randomQuestion = "";
      questions.put("What is the largest state in the yew ess ay?", "Alaska");
      return questions;
   }
-  
+
   public ArrayList getQuestionArray() {
     questionsAsArray.add("What won the oscar for best picture in ninteen ninety seven?");
     questionsAsArray.add("What is the capital of England?");
@@ -71,7 +71,7 @@ String randomQuestion = "";
     questionsAsArray.add("What is the name of the only ay eye to have passed the Turing Test?");
     questionsAsArray.add("In ancient Greek mythology, what river did the souls of the dead have to cross?");
     questionsAsArray.add("Who wrote the Tale of Peter Rabbit?");
-    questionsAsArray.add("What is the largest living species of bird that can fly?";
+    questionsAsArray.add("What is the largest living species of bird that can fly?");
     questionsAsArray.add("Who painted the Birth of Venus?");
     questionsAsArray.add("Which of Henry the eighth’s wives gave birth to Edward the sixth?");
     questionsAsArray.add("What is the tallest mountain on the British Isles?");
@@ -83,7 +83,7 @@ String randomQuestion = "";
     questionsAsArray.add("Which artist has spent the most number of weeks at number one in the UK music charts with the song I believe?");
     questionsAsArray.add("Who is widely credited as being the first ever computer programmer?");
     questionsAsArray.add("A score of three hundred and ninety two is the highest single word score ever recorded in an English scrabble championship, what is the word?");
-    questionsAsArray.add("Which body of water is regarded as the worlds largest lake?", "Caspian Sea");
+    questionsAsArray.add("Which body of water is regarded as the worlds largest lake?");
     questionsAsArray.add("Who ruled France for sixty seven years between eleven thirty seven and twelve oh four, the longest ruling female in history?");
     questionsAsArray.add("Who is Snoopees best friend?");
     questionsAsArray.add("Complete the lyric: Its true wherever you find love it feels like?");

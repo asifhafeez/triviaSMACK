@@ -15,7 +15,7 @@ public class QuestionHashTest {
     QuestionHash hash = new QuestionHash();
     hash.getQuestionArray();
     int arraySize = hash.questionsAsArray.size();
-    assertEquals(12, arraySize);
+    assertEquals(33, arraySize);
   }
 
   @Test

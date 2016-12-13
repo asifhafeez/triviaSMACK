@@ -159,7 +159,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
        {
          Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
          session.setAttribute("TeamOneScore", scoreAttribute);
-         speechText = answerHandler.checkIfCorrect(realAnswerValue);
+         speechText = answerHandler.checkIfCorrect(realAnswerValue) + ". Your score is " + String.valueOf(session.getAttribute("TeamOneScore"));
+
       } else {
          speechText = "Nothing received";
       }
