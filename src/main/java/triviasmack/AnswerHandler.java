@@ -1,11 +1,17 @@
 package triviasmack;
+import java.util.*;
+
 
 public class AnswerHandler {
-
 QuestionHash questionHash = new QuestionHash();
+
+
 String chosenQuestion = "";
 String randomAnswer = "";
 
+public void makeQuestionArray(){
+  questionHash.getQuestionArray();
+}
 
   public String setQuestion(){
     chosenQuestion = questionHash.randomQuestion();
