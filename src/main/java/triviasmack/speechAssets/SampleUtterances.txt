@@ -59,6 +59,10 @@ GameSetupIntent team two name is {TeamTwo}
 GameSetupIntent team two name {TeamTwo}
 GameSetupIntent team two is {TeamTwo}
 GameSetupIntent team two {TeamTwo}
+GameSetupIntent the team name is {TeamTwo}
+GameSetupIntent the team name {TeamTwo}
+GameSetupIntent the team name is {TeamOne}
+GameSetupIntent the team name {TeamOne}
 TriviaSmackIntent hit me with questions
 TriviaSmackIntent hit me with some questions
 TriviaSmackIntent hit me with some trivia
