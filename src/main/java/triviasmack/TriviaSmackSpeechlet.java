@@ -27,6 +27,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
 
+            answerHandler.makeQuestionArray();
+
     }
 
     @Override
@@ -71,8 +73,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
     private SpeechletResponse getWelcomeResponse() {
 
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
-
-
         // Create the plain text output.
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
@@ -128,14 +128,14 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String question = answerHandler.setQuestion();
      SsmlOutputSpeech speech = new SsmlOutputSpeech();
      speech.setSsml(question);
-
+     System.out.println(speech);
      session.setAttribute("question", speech);
 
      Reprompt reprompt = new Reprompt();
      PlainTextOutputSpeech repromptQuestionSpeech = new PlainTextOutputSpeech();
      repromptQuestionSpeech.setText("Don't forget to answer. Your question was " + speech);
+     System.out.println(speech);
      reprompt.setOutputSpeech(repromptQuestionSpeech);
-
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
    }

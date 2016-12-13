@@ -10,6 +10,7 @@ import java.io.*;
 public class QuestionHash {
 
 HashMap<String, String> questions = new HashMap<String, String>();
+ArrayList<String> questionsAsArray = new ArrayList<String>();
 String randomQuestion = "";
 
 // public static void main(String args[]) {
@@ -32,13 +33,10 @@ String randomQuestion = "";
 
      return questions;
   }
-
-
-  public String randomQuestion() {
-    ArrayList<String> questionsAsArray = new ArrayList<String>();
+  public ArrayList getQuestionArray() {
     questionsAsArray.add("What won the oscar for best picture in ninteen ninety seven?");
     questionsAsArray.add("What is the capital of England?");
-    questionsAsArray.add("WWhat Castle housed Radio one's big weekend in two thousand and sixteen?");
+    questionsAsArray.add("What Castle housed Radio one's big weekend in two thousand and sixteen?");
     questionsAsArray.add("Which dee eye why brand was bought by the Focus Group in two thousand?");
     questionsAsArray.add("According to Bart Simpson, what do you not make with salad?");
     questionsAsArray.add("What is the pink sauce, often eaten with prawns");
@@ -49,10 +47,15 @@ String randomQuestion = "";
     questionsAsArray.add("What is Frankie Bell's favourite drink?");
     questionsAsArray.add("The duke of what was voted the fourteenth greatest Briton of all time?");
 
+    return questionsAsArray;
+  }
+
+  public String randomQuestion() {
     Random random = new Random();
     int questionNumber = random.nextInt(questionsAsArray.size());
     randomQuestion = questionsAsArray.get(questionNumber);
     questionsAsArray.remove(questionNumber);
+
     return randomQuestion;
   };
 

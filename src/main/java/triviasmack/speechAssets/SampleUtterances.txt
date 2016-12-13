@@ -123,6 +123,9 @@ TriviaSmackIntent answer {Answer}
 TriviaSmackIntent answer is {Answer}
 TriviaSmackIntent the answer {Answer}
 TriviaSmackIntent the answer is {Answer}
+TriviaSmackIntent pass
+TriviaSmackIntent pass question
+TriviaSmackIntent i don't know, pass
 FailedIntent hello
 FailedIntent bye
 FailedIntent penguin

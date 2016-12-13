@@ -1,11 +1,19 @@
 package triviasmack;
+import java.util.*;
+import com.amazon.speech.speechlet.Session;
+import com.amazon.speech.speechlet.SessionEndedRequest;
+import com.amazon.speech.speechlet.SessionStartedRequest;
 
 public class AnswerHandler {
-
 QuestionHash questionHash = new QuestionHash();
+
+
 String chosenQuestion = "";
 String randomAnswer = "";
 
+public void makeQuestionArray(){
+  questionHash.getQuestionArray();
+}
 
   public String setQuestion(){
     chosenQuestion = questionHash.randomQuestion();
