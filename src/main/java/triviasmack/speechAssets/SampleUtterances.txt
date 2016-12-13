@@ -1,6 +1,11 @@
 GameSetupIntent setup game
 GameSetupIntent set up game
 GameSetupIntent set up the game
+GameSetupIntent game setup
+GameSetupIntent game set up
+GameSetupIntent quiz set up
+GameSetupIntent trivia set up
+GameSetupIntent trivia setup
 GameSetupIntent add players
 GameSetupIntent add teams
 GameSetupIntent begin groups
