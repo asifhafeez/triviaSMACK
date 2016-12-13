@@ -96,10 +96,10 @@ public class TriviaSmackSpeechlet implements Speechlet {
           String teamTwoName = "";
           System.out.println(teamOneAttribute);
           if (teamOneAttribute == null) {
-            session.setAttribute("TeamOneName", teamOneNameValue);
+            session.setAttribute("TeamOneName", intent.getSlot("TeamOne").getValue());
           }
           System.out.println(teamOneAttribute);
-          session.setAttribute("TeamTwoName", teamTwoNameValue);
+          session.setAttribute("TeamTwoName", intent.getSlot("TeamTwo").getValue());
 
           if(session.getAttribute("TeamOneName") != null) {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
