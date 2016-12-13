@@ -15,7 +15,6 @@ public class QuestionHashTest {
     QuestionHash hash = new QuestionHash();
     hash.getQuestionArray();
     int arraySize = hash.questionsAsArray.size();
-    // assertThat(array,(isEmptyCollection(false));
     assertEquals(12, arraySize);
   }
 
