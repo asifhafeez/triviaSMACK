@@ -1,4 +1,6 @@
 GameSetupIntent setup game
+GameSetupIntent set up game
+GameSetupIntent set up the game
 GameSetupIntent add players
 GameSetupIntent add teams
 GameSetupIntent begin groups
