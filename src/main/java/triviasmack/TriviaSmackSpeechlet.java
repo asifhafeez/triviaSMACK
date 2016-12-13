@@ -22,9 +22,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
   private final static Logger log = Logger.getLogger(TriviaSmackSpeechlet.class.getName());
   AnswerHandler answerHandler = new AnswerHandler();
   TeamSetup teamSetup = new TeamSetup();
-  String currentTeamAttribute;
-  String teamOneName;
-  String teamTwoName;
+  String currentTeamAttribute = "";
+  String teamOneName = "";
+  String teamTwoName = "";
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -95,13 +95,14 @@ public class TriviaSmackSpeechlet implements Speechlet {
           String speechText = "";
           Object teamOneAttribute = session.getAttribute("TeamOneName");
           Object teamTwoAttribute = session.getAttribute("TeamTwoName");
-          String teamOneName = "";
-          String teamTwoName = "";
-          String currentTeamAttribute = "";
+          // String teamOneName = "";
+          // String teamTwoName = "";
+          // String currentTeamAttribute = "";
 
           System.out.println(teamOneAttribute);
           if (teamOneAttribute == null) {
             session.setAttribute("TeamOneName", teamOneNameValue);
+            currentTeamAttribute = session.getAttribute("TeamOneName").toString();
           }
           System.out.println(teamOneAttribute);
           session.setAttribute("TeamTwoName", teamTwoNameValue);
@@ -156,6 +157,32 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
+ // public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
+ //     Slot answerSlot = intent.getSlot("Answer");
+ //     String answerValue = answerSlot.getValue();
+ //     String realAnswerValue = answerValue.toLowerCase();
+ //     String speechText = "";
+ //     if (answerSlot != null)
+ //       {
+ //         Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
+ //         session.setAttribute("TeamOneScore", scoreAttribute);
+ //         speechText = answerHandler.checkIfCorrect(realAnswerValue) + ". Your score is " + String.valueOf(session.getAttribute("TeamOneScore"));
+ //
+ //      } else {
+ //         speechText = "Nothing received";
+ //      }
+ //
+ //       PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+ //       speech.setText(speechText);
+ //
+ //       Reprompt reprompt = new Reprompt();
+ //       PlainTextOutputSpeech repromptAnswerSpeech = new PlainTextOutputSpeech();
+ //       repromptAnswerSpeech.setText("To get the next question, say Alexa, next question");
+ //       reprompt.setOutputSpeech(repromptAnswerSpeech);
+ //
+ //       return SpeechletResponse.newAskResponse(speech, reprompt);
+ //  }
+
  public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
      Slot answerSlot = intent.getSlot("Answer");
      String answerValue = answerSlot.getValue();
@@ -163,12 +190,19 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String speechText = "";
 
      if (answerSlot != null)
-       {
-         Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
-         session.setAttribute("TeamOneScore", scoreAttribute);
+       {         System.out.println("printing current team before swap");
+                System.out.println(currentTeamAttribute);
+         if (currentTeamAttribute == teamOneName) {
+           Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
+           session.setAttribute("TeamOneScore", scoreAttribute);
+         } else {
+           Integer scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
+           session.setAttribute("TeamTwoScore", scoreAttribute);
+         }
          speechText = answerHandler.checkIfCorrect(realAnswerValue);
-         String switchturn = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
-         System.out.println(switchturn);
+         currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
+         System.out.println("printing current team after swap");
+         System.out.println(currentTeamAttribute);
       } else {
          speechText = "Nothing received";
       }

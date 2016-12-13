@@ -64,7 +64,7 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="triviasmack.TeamSetupTest" name="teamTwoNameTest" time="0.001"/>
-  <testcase classname="triviasmack.TeamSetupTest" name="bothTeamsSetupTest" time="0"/>
+  <testcase classname="triviasmack.TeamSetupTest" name="teamTwoNameTest" time="0"/>
+  <testcase classname="triviasmack.TeamSetupTest" name="bothTeamsSetupTest" time="0.001"/>
   <testcase classname="triviasmack.TeamSetupTest" name="teamOneNameTest" time="0"/>
 </testsuite>
