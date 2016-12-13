@@ -3,17 +3,65 @@ GameSetupIntent add players
 GameSetupIntent add teams
 GameSetupIntent team one name is {TeamOne}
 GameSetupIntent team two name is {TeamTwo}
+TriviaSmackIntent hit me with questions
+TriviaSmackIntent hit me with some questions
+TriviaSmackIntent hit me with some trivia
+TriviaSmackIntent hit me with trivia
+TriviaSmackIntent hit us with questions
+TriviaSmackIntent hit us with some questions
+TriviaSmackIntent hit us with some trivia
+TriviaSmackIntent hit us with trivia
+TriviaSmackIntent smack me with questions
+TriviaSmackIntent smack me with some questions
+TriviaSmackIntent smack me with some trivia
+TriviaSmackIntent smack me with trivia
+TriviaSmackIntent smack us with questions
+TriviaSmackIntent smack us with some questions
+TriviaSmackIntent smack us with some trivia
+TriviaSmackIntent smack us with trivia
+TriviaSmackIntent I want play
+TriviaSmackIntent I want to play
+TriviaSmackIntent want play
+TriviaSmackIntent want to play
 TriviaSmackIntent say start quiz
 TriviaSmackIntent ask question
-TriviaSmackIntent begin quiz
 TriviaSmackIntent quiz
 TriviaSmackIntent questions
+TriviaSmackIntent question
+TriviaSmackIntent trivia
 TriviaSmackIntent I'm ready
 TriviaSmackIntent let's inject
 TriviaSmackIntent let's play
 TriviaSmackIntent play
 TriviaSmackIntent I want to play
 TriviaSmackIntent Smack me with some trivia
+TriviaSmackIntent begin game
+TriviaSmackIntent begin quiz
+TriviaSmackIntent begin the game
+TriviaSmackIntent begin the quiz
+TriviaSmackIntent please begin game
+TriviaSmackIntent please begin quiz
+TriviaSmackIntent please begin the game
+TriviaSmackIntent please begin the quiz
+TriviaSmackIntent please start game
+TriviaSmackIntent please start quiz
+TriviaSmackIntent please start the game
+TriviaSmackIntent please start the quiz
+TriviaSmackIntent start game
+TriviaSmackIntent start quiz
+TriviaSmackIntent start the game
+TriviaSmackIntent start the quiz
+TriviaSmackIntent activate game
+TriviaSmackIntent activate quiz
+TriviaSmackIntent activate test
+TriviaSmackIntent activate the game
+TriviaSmackIntent activate the quiz
+TriviaSmackIntent activate the test
+TriviaSmackIntent activate the trivia
+TriviaSmackIntent activate trivia
+TriviaSmackIntent answer {Answer}
+TriviaSmackIntent answer is {Answer}
+TriviaSmackIntent the answer {Answer}
 TriviaSmackIntent the answer is {Answer}
 FailedIntent hello
 FailedIntent bye
