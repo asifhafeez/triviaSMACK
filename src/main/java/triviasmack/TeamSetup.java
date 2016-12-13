@@ -9,7 +9,7 @@ public class TeamSetup {
     } else if (teamTwo.isEmpty()) {
       speech = "What is the name of team two?";
     } else {
-      speech = "Game Setup Complete. Team one name is " + teamOne.toString() + ", team two name is " + teamTwo.toString();
+      speech = "Game Setup Complete. Team one name is " + teamOne.toString() + ", team two name is " + teamTwo.toString() + ". Please say start quiz to begin.";
     }
     return speech;
   }

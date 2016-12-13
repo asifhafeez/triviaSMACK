@@ -20,6 +20,6 @@ public class TeamSetupTest {
   @Test
   public void bothTeamsSetupTest() {
     TeamSetup teamSetup = new TeamSetup();
-    assertEquals("Game Setup Complete. Team one name is pandas, team two name is dolphins", teamSetup.setupTeams("pandas", "dolphins"));
+    assertEquals("Game Setup Complete. Team one name is pandas, team two name is dolphins. Please say start quiz to begin.", teamSetup.setupTeams("pandas", "dolphins"));
   }
 }
