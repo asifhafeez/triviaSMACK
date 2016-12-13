@@ -32,4 +32,15 @@ public void makeQuestionArray(){
       }
   }
 
+   public Integer score(String answer) {
+    randomAnswer = questionHash.getAnswer(chosenQuestion);
+    String correctAnswer = randomAnswer.toLowerCase();
+
+    if (answer.equals(correctAnswer)) {
+          return 1;
+         } else {
+          return 0;
+      }
+  }
+
 }

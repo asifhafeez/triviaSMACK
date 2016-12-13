@@ -1,19 +1,127 @@
 GameSetupIntent setup game
 GameSetupIntent add players
 GameSetupIntent add teams
+GameSetupIntent begin groups
+GameSetupIntent begin player
+GameSetupIntent begin players
+GameSetupIntent begin team
+GameSetupIntent begin teams
+GameSetupIntent begin the groups
+GameSetupIntent begin the player
+GameSetupIntent begin the players
+GameSetupIntent begin the team
+GameSetupIntent begin the teams
+GameSetupIntent set up groups
+GameSetupIntent set up player
+GameSetupIntent set up players
+GameSetupIntent set up team
+GameSetupIntent set up teams
+GameSetupIntent set up the groups
+GameSetupIntent set up the player
+GameSetupIntent set up the players
+GameSetupIntent set up the team
+GameSetupIntent set up the teams
+GameSetupIntent setup groups
+GameSetupIntent setup player
+GameSetupIntent setup players
+GameSetupIntent setup team
+GameSetupIntent setup teams
+GameSetupIntent setup the groups
+GameSetupIntent setup the player
+GameSetupIntent setup the players
+GameSetupIntent setup the team
+GameSetupIntent setup the teams
+GameSetupIntent start groups
+GameSetupIntent start player
+GameSetupIntent start players
+GameSetupIntent start team
+GameSetupIntent start teams
+GameSetupIntent start the groups
+GameSetupIntent start the player
+GameSetupIntent start the players
+GameSetupIntent start the team
+GameSetupIntent start the teams
+GameSetupIntent add groups
+GameSetupIntent add player
+GameSetupIntent add players
+GameSetupIntent add team
+GameSetupIntent add teams
+GameSetupIntent add the groups
+GameSetupIntent add the player
+GameSetupIntent add the players
+GameSetupIntent add the team
+GameSetupIntent add the teams
+GameSetupIntent team one name {TeamOne}
 GameSetupIntent team one name is {TeamOne}
+GameSetupIntent team one is {TeamOne}
+GameSetupIntent team one {TeamOne}
 GameSetupIntent team two name is {TeamTwo}
+GameSetupIntent team two name {TeamTwo}
+GameSetupIntent team two is {TeamTwo}
+GameSetupIntent team two {TeamTwo}
+GameSetupIntent the team name is {TeamTwo}
+GameSetupIntent the team name {TeamTwo}
+GameSetupIntent the team name is {TeamOne}
+GameSetupIntent the team name {TeamOne}
+TriviaSmackIntent hit me with questions
+TriviaSmackIntent hit me with some questions
+TriviaSmackIntent hit me with some trivia
+TriviaSmackIntent hit me with trivia
+TriviaSmackIntent hit us with questions
+TriviaSmackIntent hit us with some questions
+TriviaSmackIntent hit us with some trivia
+TriviaSmackIntent hit us with trivia
+TriviaSmackIntent smack me with questions
+TriviaSmackIntent smack me with some questions
+TriviaSmackIntent smack me with some trivia
+TriviaSmackIntent smack me with trivia
+TriviaSmackIntent smack us with questions
+TriviaSmackIntent smack us with some questions
+TriviaSmackIntent smack us with some trivia
+TriviaSmackIntent smack us with trivia
+TriviaSmackIntent I want play
+TriviaSmackIntent I want to play
+TriviaSmackIntent want play
+TriviaSmackIntent want to play
 TriviaSmackIntent say start quiz
 TriviaSmackIntent ask question
-TriviaSmackIntent begin quiz
 TriviaSmackIntent quiz
 TriviaSmackIntent questions
+TriviaSmackIntent question
+TriviaSmackIntent trivia
 TriviaSmackIntent I'm ready
 TriviaSmackIntent let's inject
 TriviaSmackIntent let's play
 TriviaSmackIntent play
 TriviaSmackIntent I want to play
 TriviaSmackIntent Smack me with some trivia
+TriviaSmackIntent begin game
+TriviaSmackIntent begin quiz
+TriviaSmackIntent begin the game
+TriviaSmackIntent begin the quiz
+TriviaSmackIntent please begin game
+TriviaSmackIntent please begin quiz
+TriviaSmackIntent please begin the game
+TriviaSmackIntent please begin the quiz
+TriviaSmackIntent please start game
+TriviaSmackIntent please start quiz
+TriviaSmackIntent please start the game
+TriviaSmackIntent please start the quiz
+TriviaSmackIntent start game
+TriviaSmackIntent start quiz
+TriviaSmackIntent start the game
+TriviaSmackIntent start the quiz
+TriviaSmackIntent activate game
+TriviaSmackIntent activate quiz
+TriviaSmackIntent activate test
+TriviaSmackIntent activate the game
+TriviaSmackIntent activate the quiz
+TriviaSmackIntent activate the test
+TriviaSmackIntent activate the trivia
+TriviaSmackIntent activate trivia
+TriviaSmackIntent answer {Answer}
+TriviaSmackIntent answer is {Answer}
+TriviaSmackIntent the answer {Answer}
 TriviaSmackIntent the answer is {Answer}
 TriviaSmackIntent pass
 TriviaSmackIntent pass question
@@ -43,3 +151,53 @@ FailedIntent blahblahblah
 FailedIntent blah
 FailedIntent meh
 FailedIntent I don't know what you want from me Alexa
+FailedIntent gruhawerjea
+FailedIntent ighojwflkdwaw
+FailedIntent huwfejakdm
+FailedIntent gafwhuedj
+FailedIntent thuirwoeqijwnkjsd
+FailedIntent ghuifawejns
+FailedIntent riiii
+FailedIntent fnewuhteiusg
+FailedIntent fnjeduwtay
+FailedIntent ndaeuheudwh
+FailedIntent plpakwe
+FailedIntent nbcesbv
+FailedIntent rejwahrwkez
+FailedIntent fnejskreu
+FailedIntent rwteyrui
+FailedIntent rueishrtueg
+FailedIntent fneskchequwayq
+FailedIntent jwezwuhe
+FailedIntent jdawuhieiwzuy
+FailedIntent hduiwarywg
+FailedIntent reshrlsu
+FailedIntent fbawjrzgaw
+FailedIntent nehjftwyza
+FailedIntent fesxrer
+FailedIntent rswerw
+FailedIntent ddddd
+FailedIntent ddddsdsdez
+FailedIntent rwersf
+FailedIntent dfghjk
+FailedIntent jehrueshkr
+FailedIntent ertrsgrg
+FailedIntent fhesuhue
+FailedIntent reuarhaeiuyr
+FailedIntent euhairhaeur
+FailedIntent rhueahreuk
+FailedIntent rejskrheukr
+FailedIntent rjhewwe
+FailedIntent reakrher
+FailedIntent feakrhlrrfearewarw
+FailedIntent frisghrisgrg
+FailedIntent bewakewuew
+FailedIntent ewwtyrewre
+FailedIntent rearaeureqwqw
+FailedIntent weqweawe
+FailedIntent jqkaeuwyea
+FailedIntent heuakheuwa
+FailedIntent ieruhare
+FailedIntent heuwaieyw
+FailedIntent pooyqw
+FailedIntent heyargywr

@@ -50,7 +50,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
             Slot answerSlot = intent.getSlot("Answer");
             String answerValue = answerSlot.getValue();
             if (answerSlot != null && answerValue != null) {
-                return getAnswerResponse(intent);
+                return getAnswerResponse(intent, session);
             } else {
                 return getQuestionResponse(session);
             }
@@ -105,10 +105,12 @@ public class TriviaSmackSpeechlet implements Speechlet {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
               teamOneName = session.getAttribute("TeamOneName").toString();
               teamTwoName = session.getAttribute("TeamTwoName").toString();
+              session.setAttribute("TeamTwoScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
             }
             else {
               teamOneName = session.getAttribute("TeamOneName").toString();
+              session.setAttribute("TeamOneScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
             }
           } else {
@@ -148,13 +150,15 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
- public SpeechletResponse getAnswerResponse(final Intent intent) {
+ public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
      Slot answerSlot = intent.getSlot("Answer");
      String answerValue = answerSlot.getValue();
      String realAnswerValue = answerValue.toLowerCase();
      String speechText = "";
      if (answerSlot != null)
        {
+         Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
+         session.setAttribute("TeamOneScore", scoreAttribute);
          speechText = answerHandler.checkIfCorrect(realAnswerValue);
       } else {
          speechText = "Nothing received";
