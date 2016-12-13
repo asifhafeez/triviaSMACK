@@ -8,7 +8,7 @@ public class TeamSetupTest {
   @Test
   public void teamOneNameTest() {
     TeamSetup teamSetup = new TeamSetup();
-    assertEquals("Game setup. What is the name of team one?", teamSetup.setupTeams("", ""));
+    assertEquals("Game setup. You can choose either pandas, chickens, dolphins, or Asif for your team name. What is the name of team one?", teamSetup.setupTeams("", ""));
   }
 
   @Test
