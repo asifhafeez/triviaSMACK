@@ -15,6 +15,9 @@ TriviaSmackIntent play
 TriviaSmackIntent I want to play
 TriviaSmackIntent Smack me with some trivia
 TriviaSmackIntent the answer is {Answer}
+TriviaSmackIntent pass
+TriviaSmackIntent pass question
+TriviaSmackIntent i don't know, pass
 FailedIntent hello
 FailedIntent bye
 FailedIntent penguin

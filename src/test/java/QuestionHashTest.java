@@ -1,25 +1,53 @@
 package triviasmack;
 
 import org.junit.Test;
+import java.util.ArrayList;
+import java.lang.Object;
 import static org.junit.Assert.*;
+
+import static org.hamcrest.CoreMatchers.*;
 
 
 public class QuestionHashTest {
+
+  @Test
+  public void testGetQuestionArray(){
+    QuestionHash hash = new QuestionHash();
+    hash.getQuestionArray();
+    int arraySize = hash.questionsAsArray.size();
+    // assertThat(array,(isEmptyCollection(false));
+    assertEquals(12, arraySize);
+  }
+
+  @Test
+  public void testRandomQuestion(){
+    QuestionHash hash = new QuestionHash();
+    hash.getQuestionArray();
+    String question1 = hash.randomQuestion();
+    String question2 = hash.randomQuestion();
+    assertThat(question2, is(not(question1)));
+
+  }
+  @Test
+  public void testGetAnswer(){
+    QuestionHash hash = new QuestionHash();
+    hash.getQuestionArray();
+    String result = hash.getAnswer("What is the capital of England?");
+    assertEquals("London", result);
+
+  }
+  @Test
+  public void testAnswer(){
+
+    QuestionHash hash = new QuestionHash();
+    hash.getQuestionArray();
+    int array1 = hash.questionsAsArray.size();
+    hash.randomQuestion();
+    int array2 = hash.questionsAsArray.size();
+    hash.randomQuestion();
+    int array3 = hash.questionsAsArray.size();
+    assertThat(array1, is(not(array3)));
   //
-  // @Test
-  // public void testRandomQuestion(){
-  //   QuestionHash hash = new QuestionHash();
-  //   String question = hash.randomQuestion();
-  //   assertEquals("What is the capital of England?", question);
-  //
-  // }
-  // @Test
-  // public void testGetAnswer(){
-  //   QuestionHash hash = new QuestionHash();
-  //   hash.getQuestions();
-  //   hash.randomQuestion();
-  //   String result = hash.getAnswer("What is the capital of England?");
-  //   assertEquals("London", result);
-  //
-  // }
+  }
+
 }

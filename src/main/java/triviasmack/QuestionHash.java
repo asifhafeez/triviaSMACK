@@ -55,7 +55,7 @@ String randomQuestion = "";
     int questionNumber = random.nextInt(questionsAsArray.size());
     randomQuestion = questionsAsArray.get(questionNumber);
     questionsAsArray.remove(questionNumber);
-    System.out.println(questionsAsArray);
+
     return randomQuestion;
   };
 

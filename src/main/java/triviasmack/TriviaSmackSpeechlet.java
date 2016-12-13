@@ -126,16 +126,14 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String question = answerHandler.setQuestion();
      SsmlOutputSpeech speech = new SsmlOutputSpeech();
      speech.setSsml(question);
-     System.log.println(speech);
+     System.out.println(speech);
      session.setAttribute("question", speech);
 
      Reprompt reprompt = new Reprompt();
      PlainTextOutputSpeech repromptQuestionSpeech = new PlainTextOutputSpeech();
      repromptQuestionSpeech.setText("Don't forget to answer. Your question was " + speech);
-     System.log.println(speech);
-
+     System.out.println(speech);
      reprompt.setOutputSpeech(repromptQuestionSpeech);
-
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
    }
