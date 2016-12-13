@@ -14,4 +14,12 @@ public class TeamSetup {
     return speech;
   }
 
+  public String defineUser(String currentTeamAttribute, String teamOneName, String teamTwoName){
+      if (currentTeamAttribute == teamOneName) {
+        currentTeamAttribute = teamTwoName;
+      } else {
+        currentTeamAttribute = teamOneName;
+      }
+      return currentTeamAttribute;
+    }
 }

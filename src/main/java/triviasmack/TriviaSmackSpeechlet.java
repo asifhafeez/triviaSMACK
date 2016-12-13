@@ -22,6 +22,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
   private final static Logger log = Logger.getLogger(TriviaSmackSpeechlet.class.getName());
   AnswerHandler answerHandler = new AnswerHandler();
   TeamSetup teamSetup = new TeamSetup();
+  String currentTeamAttribute;
+  String teamOneName;
+  String teamTwoName;
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -94,6 +97,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
           Object teamTwoAttribute = session.getAttribute("TeamTwoName");
           String teamOneName = "";
           String teamTwoName = "";
+          String currentTeamAttribute = "";
+
           System.out.println(teamOneAttribute);
           if (teamOneAttribute == null) {
             session.setAttribute("TeamOneName", teamOneNameValue);
@@ -104,6 +109,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
           if(session.getAttribute("TeamOneName") != null) {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
               teamOneName = session.getAttribute("TeamOneName").toString();
+              currentTeamAttribute = session.getAttribute("TeamOneName").toString();
               teamTwoName = session.getAttribute("TeamTwoName").toString();
               session.setAttribute("TeamTwoScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
@@ -155,11 +161,14 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String answerValue = answerSlot.getValue();
      String realAnswerValue = answerValue.toLowerCase();
      String speechText = "";
+
      if (answerSlot != null)
        {
          Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
          session.setAttribute("TeamOneScore", scoreAttribute);
          speechText = answerHandler.checkIfCorrect(realAnswerValue);
+         String switchturn = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
+         System.out.println(switchturn);
       } else {
          speechText = "Nothing received";
       }
@@ -174,7 +183,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
        return SpeechletResponse.newAskResponse(speech, reprompt);
   }
-
 
     private SpeechletResponse incorrectUtterance(Session session) {
       String speechText = "TriviaSmack says no.";
