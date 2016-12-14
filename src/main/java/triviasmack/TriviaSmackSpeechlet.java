@@ -79,15 +79,19 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
         return getSpeechlet(speechText);
-    }
+      }
 
-    private String checkTeams(Session session, Intent intent){
-      if(intent.getSlot("TeamTwo") != null && intent.getSlot("TeamTwo").getValue() != null) {
+      private String teamTwoSetup(Session session){
         teamOneName = session.getAttribute("TeamOneName").toString();
         currentTeamAttribute = session.getAttribute("TeamOneName").toString();
         teamTwoName = session.getAttribute("TeamTwoName").toString();
         session.setAttribute("TeamTwoScore", 0);
         return teamSetup.setupTeams(teamOneName, teamTwoName);
+      }
+
+    private String checkTeams(Session session, Intent intent){
+      if(intent.getSlot("TeamTwo") != null && intent.getSlot("TeamTwo").getValue() != null) {
+        return teamTwoSetup(session);
       } else {
         teamOneName = session.getAttribute("TeamOneName").toString();
         session.setAttribute("TeamOneScore", 0);
