@@ -59,7 +59,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
             }
 
           } else if ("GameSetupIntent".equals(intentName)) {
-            System.out.println("Hello 1");
             return getSetupResponse(intent, session);
           } else if ("AMAZON.HelpIntent".equals(intentName)) {
               return getHelpResponse();
@@ -82,11 +81,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
       }
 
       private String teamTwoSetup(Session session){
-        teamOneName = session.getAttribute("TeamOneName").toString();
         currentTeamAttribute = session.getAttribute("TeamOneName").toString();
-        teamTwoName = session.getAttribute("TeamTwoName").toString();
         session.setAttribute("TeamTwoScore", 0);
-        return teamSetup.setupTeams(teamOneName, teamTwoName);
+        return teamSetup.setupTeams(session.getAttribute("TeamOneName").toString(), session.getAttribute("TeamTwoName").toString());
       }
 
       private String teamOneSetup(Session session){
