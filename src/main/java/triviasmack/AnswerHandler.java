@@ -21,37 +21,14 @@ public void makeQuestionArray(){
     return question;
   }
 
-
-    //
-    // public String checkIfCorrect(final String answer, String teamOne, String teamTwo, String teamOneScore, String teamTwoScore, String currentTeamAttribute) {
-    //   randomAnswer = questionHash.getAnswer(chosenQuestion);
-    //   String correctAnswer = randomAnswer.toLowerCase();
-    //   System.out.println("----printing answer score from answer handler---");
-    //   System.out.println(answer);
-    //   System.out.println("----printing teamone name from answer handler---");
-    //   System.out.println(teamOne);
-    //   System.out.println("----printing teamtwo name from answer handler---");
-    //   System.out.println(teamTwo);
-    //   System.out.println("----printing teamone score from answer handler---");
-    //   System.out.println(teamOneScore);
-    //   System.out.println("----printing teamtwo score from answer handler---");
-    //   System.out.println(teamTwoScore);
-    //   System.out.println("----printing currentTeamAttribute from answer handler---");
-    //   System.out.println(currentTeamAttribute);
-    //   if (answer.equals(correctAnswer)) {
-    //         return "The answer is " + randomAnswer + ". You are correct! " + teamOne + " has " + teamOneScore +". "+ teamTwo + " has " + teamTwoScore+ ". " + currentTeamAttribute+ " is up next.";
-    //        } else {
-    //         return "The answer is " + randomAnswer + ". You are incorrect! " + teamOne + " has " + teamOneScore +". "+ teamTwo + " has " + teamTwoScore+ ". " + currentTeamAttribute+ " is up next.";
-    //     }
-    // }
-  public String checkIfCorrect(final String answer) {
+  public String checkIfCorrect(final String answer, String teamOneName, String teamTwoName, String teamOneScore, String teamTwoScore, String currentTeamAttribute) {
     randomAnswer = questionHash.getAnswer(chosenQuestion);
     String correctAnswer = randomAnswer.toLowerCase();
-
+    String answerText = teamOneName + " has " + teamOneScore +". "+ teamTwoName + " has " + teamTwoScore+ ". " + currentTeamAttribute+ " is up next.";
     if (answer.equals(correctAnswer)) {
-          return "The answer is " + randomAnswer + ". You are correct! ";
+          return "The answer is " + randomAnswer + ". You are correct! " + answerText;
          } else {
-          return "The answer is " + randomAnswer + ". You are incorrect! ";
+          return "The answer is " + randomAnswer + ". You are incorrect! " + answerText;
       }
   }
 

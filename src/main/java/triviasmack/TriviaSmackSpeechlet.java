@@ -152,32 +152,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
- // public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
- //     Slot answerSlot = intent.getSlot("Answer");
- //     String answerValue = answerSlot.getValue();
- //     String realAnswerValue = answerValue.toLowerCase();
- //     String speechText = "";
- //     if (answerSlot != null)
- //       {
- //         Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
- //         session.setAttribute("TeamOneScore", scoreAttribute);
- //         speechText = answerHandler.checkIfCorrect(realAnswerValue) + ". Your score is " + String.valueOf(session.getAttribute("TeamOneScore"));
- //
- //      } else {
- //         speechText = "Nothing received";
- //      }
- //
- //       PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
- //       speech.setText(speechText);
- //
- //       Reprompt reprompt = new Reprompt();
- //       PlainTextOutputSpeech repromptAnswerSpeech = new PlainTextOutputSpeech();
- //       repromptAnswerSpeech.setText("To get the next question, say Alexa, next question");
- //       reprompt.setOutputSpeech(repromptAnswerSpeech);
- //
- //       return SpeechletResponse.newAskResponse(speech, reprompt);
- //  }
-
  public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
      Slot answerSlot = intent.getSlot("Answer");
      String answerValue = answerSlot.getValue();
@@ -194,19 +168,11 @@ public class TriviaSmackSpeechlet implements Speechlet {
            session.setAttribute("TeamTwoScore", scoreAttribute);
          }
          currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
-        //  System.out.println("----printing currentTeamAttribute from trivia smack---");
-        //  System.out.println(currentTeamAttribute);
          String teamOneScores = session.getAttribute("TeamOneScore").toString();
-        //  System.out.println("----printing teamone score from trivia smack---");
-        //  System.out.println(teamOneScores);
          String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
-        //  System.out.println("----printing teamtwo score from trivia smack---");
-        //  System.out.println(teamTwoScores);
-         String checkText = answerHandler.checkIfCorrect(realAnswerValue);
-         String answerText = teamOneName + " has " + teamOneScores +". "+ teamTwoName + " has " + teamTwoScores+ ". " + currentTeamAttribute+ " is up next.";
-         speechText = checkText + answerText;
-        //  System.out.println("----printing speechText---");
-        //  System.out.println(speechText);
+
+         speechText = answerHandler.checkIfCorrect(realAnswerValue, teamOneName, teamTwoName, teamOneScores, teamTwoScores, currentTeamAttribute);
+
       } else {
          speechText = "Nothing received";
       }
