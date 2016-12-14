@@ -26,9 +26,9 @@ public void makeQuestionArray(){
     String correctAnswer = getCorrectAnswer();
     String answerText = teamOneName + " has " + teamOneScore +". "+ teamTwoName + " has " + teamTwoScore+ ". " + currentTeamAttribute+ " is up next.";
     if (answer.equals(correctAnswer)) {
-          return "The answer is " + randomAnswer + ". You are correct! " + answerText;
+          return "The answer is " + randomAnswer + ". You are correct" + answerText;
          } else {
-          return "The answer is " + randomAnswer + ". You are incorrect! " + answerText;
+          return "The answer is " + randomAnswer + ". You are incorrect" + answerText;
       }
   }
 
@@ -44,8 +44,7 @@ public void makeQuestionArray(){
 
   public String getCorrectAnswer(){
     randomAnswer = questionHash.getAnswer(chosenQuestion);
-    String correctAnswer = randomAnswer.toLowerCase();
-    return correctAnswer;
+    return randomAnswer.toLowerCase();
   }
 
 }
