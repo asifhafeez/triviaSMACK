@@ -25,6 +25,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
   String currentTeamAttribute = "";
   String teamOneName = "";
   String teamTwoName = "";
+  Integer scoreAttribute = 0;
+
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -84,7 +86,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
     private SpeechletResponse getSetupResponse(Intent intent, Session session)
         {
           String speechText;
-          setTeamAttributes(session.getAttribute("TeamOneName"), intent, session);
+          setTeamAttributes(intent, session);
           return getSpeechlet(gameSetup(session, intent));
       }
 
@@ -113,33 +115,28 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
- public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
-     Slot answerSlot = intent.getSlot("Answer");
-     String answerValue = answerSlot.getValue();
-     String realAnswerValue = answerValue.toLowerCase();
+ private String answerChecker(Intent intent, Session session) {
+  if (intent.getSlot("Answer") != null) {
+       if (currentTeamAttribute == teamOneName) {
+         scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(intent.getSlot("Answer").getValue().toLowerCase());
+         session.setAttribute("TeamOneScore", scoreAttribute);
+       } else {
+         scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(intent.getSlot("Answer").getValue().toLowerCase());
+         session.setAttribute("TeamTwoScore", scoreAttribute);
+       }
+       currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
+       String teamOneScores = session.getAttribute("TeamOneScore").toString();
+       String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
+       return answerHandler.checkIfCorrect(intent.getSlot("Answer").getValue().toLowerCase(), teamOneName, teamTwoName, teamOneScores, teamTwoScores, currentTeamAttribute);
+  } else {
+     return "Nothing received";
+  }
+ }
+
+ private SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
      String speechText = "";
-     Integer scoreAttribute = 0;
      String winningTeam = currentTeamAttribute;
-     if (answerSlot != null)
-       {
-         if (currentTeamAttribute == teamOneName) {
-           scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
-           session.setAttribute("TeamOneScore", scoreAttribute);
-
-         } else {
-           scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
-           session.setAttribute("TeamTwoScore", scoreAttribute);
-         }
-         currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
-
-         String teamOneScores = session.getAttribute("TeamOneScore").toString();
-         String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
-
-         speechText = answerHandler.checkIfCorrect(realAnswerValue, teamOneName, teamTwoName, teamOneScores, teamTwoScores, currentTeamAttribute);
-
-      } else {
-         speechText = "Nothing received";
-      }
+     speechText = answerChecker(intent, session);
 
       if (scoreAttribute >= 2) {
         speechText = winningTeam + " wins!";
@@ -187,8 +184,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
 
 
-    private void setTeamAttributes(Object teamOne, Intent intent, Session session) {
-      if (teamOne == null) {
+    private void setTeamAttributes(Intent intent, Session session) {
+      if (session.getAttribute("TeamOneName") == null) {
         session.setAttribute("TeamOneName", intent.getSlot("TeamOne").getValue());
         currentTeamAttribute = (String) session.getAttribute("TeamOneName");
       }
@@ -219,15 +216,10 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
 
     private String teamTwoSetup(Session session){
+      teamTwoName = session.getAttribute("TeamTwoName").toString();
       currentTeamAttribute = session.getAttribute("TeamOneName").toString();
       session.setAttribute("TeamTwoScore", 0);
       return teamSetup.setupTeams(session.getAttribute("TeamOneName").toString(), session.getAttribute("TeamTwoName").toString());
     }
-
-      
-
-    
-
-    
 
 }
