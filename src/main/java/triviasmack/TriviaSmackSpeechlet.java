@@ -22,6 +22,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
   private final static Logger log = Logger.getLogger(TriviaSmackSpeechlet.class.getName());
   AnswerHandler answerHandler = new AnswerHandler();
   TeamSetup teamSetup = new TeamSetup();
+  String currentTeamAttribute = "";
+  String teamOneName = "";
+  String teamTwoName = "";
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -92,27 +95,28 @@ public class TriviaSmackSpeechlet implements Speechlet {
           String speechText = "";
           Object teamOneAttribute = session.getAttribute("TeamOneName");
           Object teamTwoAttribute = session.getAttribute("TeamTwoName");
-          String teamOneName = "";
-          String teamTwoName = "";
-          System.out.println(teamOneAttribute);
+          // String teamOneName = "";
+          // String teamTwoName = "";
+          // String currentTeamAttribute = "";
+
           if (teamOneAttribute == null) {
-            session.setAttribute("TeamOneName", intent.getSlot("TeamOne").getValue());
+            session.setAttribute("TeamOneName", teamOneNameValue);
+            currentTeamAttribute = session.getAttribute("TeamOneName").toString();
           }
-          System.out.println(teamOneAttribute);
           session.setAttribute("TeamTwoName", intent.getSlot("TeamTwo").getValue());
 
           if(session.getAttribute("TeamOneName") != null) {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
               teamOneName = session.getAttribute("TeamOneName").toString();
+              currentTeamAttribute = session.getAttribute("TeamOneName").toString();
               teamTwoName = session.getAttribute("TeamTwoName").toString();
               session.setAttribute("TeamTwoScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-            }
-            else {
+            } else {
               teamOneName = session.getAttribute("TeamOneName").toString();
               session.setAttribute("TeamOneScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-            }
+            } 
           } else {
             speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
           }
@@ -122,19 +126,17 @@ public class TriviaSmackSpeechlet implements Speechlet {
           Reprompt reprompt = new Reprompt();
           reprompt.setOutputSpeech(speech);
           return SpeechletResponse.newAskResponse(speech, reprompt);
-          }
+      }
 
     private SpeechletResponse getQuestionResponse(final Session session) {
      String question = answerHandler.setQuestion();
      SsmlOutputSpeech speech = new SsmlOutputSpeech();
      speech.setSsml(question);
-     System.out.println(speech);
      session.setAttribute("question", speech);
 
      Reprompt reprompt = new Reprompt();
      PlainTextOutputSpeech repromptQuestionSpeech = new PlainTextOutputSpeech();
      repromptQuestionSpeech.setText("Don't forget to answer. Your question was " + speech);
-     System.out.println(speech);
      reprompt.setOutputSpeech(repromptQuestionSpeech);
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
@@ -150,16 +152,49 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
+ // public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
+ //     Slot answerSlot = intent.getSlot("Answer");
+ //     String answerValue = answerSlot.getValue();
+ //     String realAnswerValue = answerValue.toLowerCase();
+ //     String speechText = "";
+ //     if (answerSlot != null)
+ //       {
+ //         Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
+ //         session.setAttribute("TeamOneScore", scoreAttribute);
+ //         speechText = answerHandler.checkIfCorrect(realAnswerValue) + ". Your score is " + String.valueOf(session.getAttribute("TeamOneScore"));
+ //
+ //      } else {
+ //         speechText = "Nothing received";
+ //      }
+ //
+ //       PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+ //       speech.setText(speechText);
+ //
+ //       Reprompt reprompt = new Reprompt();
+ //       PlainTextOutputSpeech repromptAnswerSpeech = new PlainTextOutputSpeech();
+ //       repromptAnswerSpeech.setText("To get the next question, say Alexa, next question");
+ //       reprompt.setOutputSpeech(repromptAnswerSpeech);
+ //
+ //       return SpeechletResponse.newAskResponse(speech, reprompt);
+ //  }
+
  public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
      Slot answerSlot = intent.getSlot("Answer");
      String answerValue = answerSlot.getValue();
      String realAnswerValue = answerValue.toLowerCase();
      String speechText = "";
+
      if (answerSlot != null)
-       {
-         Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
-         session.setAttribute("TeamOneScore", scoreAttribute);
-         speechText = answerHandler.checkIfCorrect(realAnswerValue) + ". Your score is " + String.valueOf(session.getAttribute("TeamOneScore"));
+       {         
+         if (currentTeamAttribute == teamOneName) {
+           Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
+           session.setAttribute("TeamOneScore", scoreAttribute);
+         } else {
+           Integer scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
+           session.setAttribute("TeamTwoScore", scoreAttribute);
+         }
+         speechText = answerHandler.checkIfCorrect(realAnswerValue);
+         currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
 
       } else {
          speechText = "Nothing received";
@@ -175,7 +210,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
        return SpeechletResponse.newAskResponse(speech, reprompt);
   }
-
 
     private SpeechletResponse incorrectUtterance(Session session) {
       String speechText = "TriviaSmack says no.";
