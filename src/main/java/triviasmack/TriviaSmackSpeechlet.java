@@ -89,13 +89,17 @@ public class TriviaSmackSpeechlet implements Speechlet {
         return teamSetup.setupTeams(teamOneName, teamTwoName);
       }
 
+      private String teamOneSetup(Session session){
+        teamOneName = session.getAttribute("TeamOneName").toString();
+        session.setAttribute("TeamOneScore", 0);
+        return teamSetup.setupTeams(teamOneName, teamTwoName);
+      }
+
     private String checkTeams(Session session, Intent intent){
       if(intent.getSlot("TeamTwo") != null && intent.getSlot("TeamTwo").getValue() != null) {
         return teamTwoSetup(session);
       } else {
-        teamOneName = session.getAttribute("TeamOneName").toString();
-        session.setAttribute("TeamOneScore", 0);
-        return teamSetup.setupTeams(teamOneName, teamTwoName);
+        return teamOneSetup(session);
       }
     }
 
