@@ -158,6 +158,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String realAnswerValue = answerValue.toLowerCase();
      String speechText = "";
      Integer scoreAttribute = 0;
+     String winningTeam = currentTeamAttribute;
      if (answerSlot != null)
        {
          if (currentTeamAttribute == teamOneName) {
@@ -179,8 +180,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
          speechText = "Nothing received";
       }
 
-      if (scoreAttribute >= 10) {
-        speechText = currentTeamAttribute.toString() + " wins!"; 
+      if (scoreAttribute >= 2) {
+        speechText = winningTeam + " wins!"; 
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
