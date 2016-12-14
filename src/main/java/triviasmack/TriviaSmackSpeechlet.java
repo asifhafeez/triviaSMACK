@@ -81,14 +81,22 @@ public class TriviaSmackSpeechlet implements Speechlet {
         return getSpeechlet(speechText);
     }
 
-    private SpeechletResponse getSpeechlet(String speechText) {
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
-
-        Reprompt reprompt = new Reprompt();
-        reprompt.setOutputSpeech(speech);
-
-        return SpeechletResponse.newAskResponse(speech, reprompt);
+    private String gameSetup(Session session, Intent intent){
+      if(session.getAttribute("TeamOneName") != null) {
+        if(intent.getSlot("TeamTwo") != null && intent.getSlot("TeamTwo").getValue() != null) {
+          teamOneName = session.getAttribute("TeamOneName").toString();
+          currentTeamAttribute = session.getAttribute("TeamOneName").toString();
+          teamTwoName = session.getAttribute("TeamTwoName").toString();
+          session.setAttribute("TeamTwoScore", 0);
+          return teamSetup.setupTeams(teamOneName, teamTwoName);
+        } else {
+          teamOneName = session.getAttribute("TeamOneName").toString();
+          session.setAttribute("TeamOneScore", 0);
+          return teamSetup.setupTeams(teamOneName, teamTwoName);
+        }
+      } else {
+        return teamSetup.setupTeams(teamOneName, teamTwoName);
+      }
     }
 
     private SpeechletResponse getSetupResponse(Intent intent, Session session)
@@ -100,25 +108,10 @@ public class TriviaSmackSpeechlet implements Speechlet {
           String speechText = "";
           Object teamOneAttribute = session.getAttribute("TeamOneName");
           Object teamTwoAttribute = session.getAttribute("TeamTwoName");
-          
+
           setTeamAttributes(teamOneAttribute, intent, session);
 
-          if(session.getAttribute("TeamOneName") != null) {
-            if(teamTwoNameSlot != null && teamTwoNameValue != null) {
-              teamOneName = session.getAttribute("TeamOneName").toString();
-              currentTeamAttribute = session.getAttribute("TeamOneName").toString();
-              teamTwoName = session.getAttribute("TeamTwoName").toString();
-              session.setAttribute("TeamTwoScore", 0);
-              speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-            } else {
-              teamOneName = session.getAttribute("TeamOneName").toString();
-              session.setAttribute("TeamOneScore", 0);
-              speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-            }
-          } else {
-            speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-          }
-          return getSpeechlet(speechText);
+          return getSpeechlet(gameSetup(session, intent));
       }
 
     private SpeechletResponse getQuestionResponse(final Session session) {
@@ -175,7 +168,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
       }
 
       if (scoreAttribute >= 2) {
-        speechText = winningTeam + " wins!"; 
+        speechText = winningTeam + " wins!";
 
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
@@ -208,6 +201,16 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
     }
 
+    private SpeechletResponse getSpeechlet(String speechText) {
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+
+        Reprompt reprompt = new Reprompt();
+        reprompt.setOutputSpeech(speech);
+
+        return SpeechletResponse.newAskResponse(speech, reprompt);
+    }
+
     private void setTeamAttributes(Object teamOne, Intent intent, Session session) {
       if (teamOne == null) {
         session.setAttribute("TeamOneName", intent.getSlot("TeamOne").getValue());
@@ -215,4 +218,5 @@ public class TriviaSmackSpeechlet implements Speechlet {
       }
       session.setAttribute("TeamTwoName", intent.getSlot("TeamTwo").getValue());
     }
+
 }
