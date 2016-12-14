@@ -100,13 +100,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
           String speechText = "";
           Object teamOneAttribute = session.getAttribute("TeamOneName");
           Object teamTwoAttribute = session.getAttribute("TeamTwoName");
-
-          if (teamOneAttribute == null) {
-            session.setAttribute("TeamOneName", teamOneNameValue);
-            currentTeamAttribute = (String) session.getAttribute("TeamOneName");
-          }
-
-          session.setAttribute("TeamTwoName", intent.getSlot("TeamTwo").getValue());
+          
+          setTeamAttributes(teamOneAttribute, intent, session);
 
           if(session.getAttribute("TeamOneName") != null) {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
@@ -211,5 +206,13 @@ public class TriviaSmackSpeechlet implements Speechlet {
       String speechText = "You can ask me to start a quiz!";
       return getSpeechlet(speechText);
 
+    }
+
+    private void setTeamAttributes(Object teamOne, Intent intent, Session session) {
+      if (teamOne == null) {
+        session.setAttribute("TeamOneName", intent.getSlot("TeamOne").getValue());
+        currentTeamAttribute = (String) session.getAttribute("TeamOneName");
+      }
+      session.setAttribute("TeamTwoName", intent.getSlot("TeamTwo").getValue());
     }
 }
