@@ -157,17 +157,19 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String answerValue = answerSlot.getValue();
      String realAnswerValue = answerValue.toLowerCase();
      String speechText = "";
-
+     Integer scoreAttribute = 0;
      if (answerSlot != null)
        {
          if (currentTeamAttribute == teamOneName) {
-           Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
+           scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamOneScore", scoreAttribute);
+      
          } else {
-           Integer scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
+           scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamTwoScore", scoreAttribute);
          }
          currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
+
          String teamOneScores = session.getAttribute("TeamOneScore").toString();
          String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
 
@@ -175,6 +177,14 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
       } else {
          speechText = "Nothing received";
+      }
+
+      if (scoreAttribute >= 10) {
+        speechText = currentTeamAttribute.toString() + " wins!"; 
+
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+        return SpeechletResponse.newTellResponse(speech);
       }
 
        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
