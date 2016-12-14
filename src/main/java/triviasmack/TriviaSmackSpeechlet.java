@@ -116,7 +116,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
               teamOneName = session.getAttribute("TeamOneName").toString();
               session.setAttribute("TeamOneScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-            } 
+            }
           } else {
             speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
           }
@@ -185,7 +185,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String speechText = "";
 
      if (answerSlot != null)
-       {         
+       {
          if (currentTeamAttribute == teamOneName) {
            Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamOneScore", scoreAttribute);
@@ -193,9 +193,20 @@ public class TriviaSmackSpeechlet implements Speechlet {
            Integer scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamTwoScore", scoreAttribute);
          }
-         speechText = answerHandler.checkIfCorrect(realAnswerValue);
          currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
-
+        //  System.out.println("----printing currentTeamAttribute from trivia smack---");
+        //  System.out.println(currentTeamAttribute);
+         String teamOneScores = session.getAttribute("TeamOneScore").toString();
+        //  System.out.println("----printing teamone score from trivia smack---");
+        //  System.out.println(teamOneScores);
+         String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
+        //  System.out.println("----printing teamtwo score from trivia smack---");
+        //  System.out.println(teamTwoScores);
+         String checkText = answerHandler.checkIfCorrect(realAnswerValue);
+         String answerText = teamOneName + " has " + teamOneScores +". "+ teamTwoName + " has " + teamTwoScores+ ". " + currentTeamAttribute+ " is up next.";
+         speechText = checkText + answerText;
+        //  System.out.println("----printing speechText---");
+        //  System.out.println(speechText);
       } else {
          speechText = "Nothing received";
       }
