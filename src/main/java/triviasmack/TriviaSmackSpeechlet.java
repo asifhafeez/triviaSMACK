@@ -78,7 +78,10 @@ public class TriviaSmackSpeechlet implements Speechlet {
     private SpeechletResponse getWelcomeResponse() {
 
         String speechText = "Welcome to Trivia Smack, your gateway quiz!";
-        // Create the plain text output.
+        return getSpeechlet(speechText);
+    }
+
+    private SpeechletResponse getSpeechlet(String speechText) {
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
 
@@ -120,12 +123,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
           } else {
             speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
           }
-          PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-          speech.setText(speechText);
-
-          Reprompt reprompt = new Reprompt();
-          reprompt.setOutputSpeech(speech);
-          return SpeechletResponse.newAskResponse(speech, reprompt);
+          return getSpeechlet(speechText);
       }
 
     private SpeechletResponse getQuestionResponse(final Session session) {
@@ -204,26 +202,14 @@ public class TriviaSmackSpeechlet implements Speechlet {
     private SpeechletResponse incorrectUtterance(Session session) {
       String speechText = "TriviaSmack says no.";
 
-      PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-      speech.setText(speechText);
+      return getSpeechlet(speechText);
 
-      Reprompt reprompt = new Reprompt();
-      reprompt.setOutputSpeech(speech);
-
-      return SpeechletResponse.newAskResponse(speech, reprompt);
     }
 
 
     private SpeechletResponse getHelpResponse() {
-        String speechText = "You can ask me to start a quiz!";
+      String speechText = "You can ask me to start a quiz!";
+      return getSpeechlet(speechText);
 
-
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
-
-        Reprompt reprompt = new Reprompt();
-        reprompt.setOutputSpeech(speech);
-
-        return SpeechletResponse.newAskResponse(speech, reprompt);
     }
 }
