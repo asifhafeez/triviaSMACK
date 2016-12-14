@@ -152,52 +152,34 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
- // public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
- //     Slot answerSlot = intent.getSlot("Answer");
- //     String answerValue = answerSlot.getValue();
- //     String realAnswerValue = answerValue.toLowerCase();
- //     String speechText = "";
- //     if (answerSlot != null)
- //       {
- //         Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
- //         session.setAttribute("TeamOneScore", scoreAttribute);
- //         speechText = answerHandler.checkIfCorrect(realAnswerValue) + ". Your score is " + String.valueOf(session.getAttribute("TeamOneScore"));
- //
- //      } else {
- //         speechText = "Nothing received";
- //      }
- //
- //       PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
- //       speech.setText(speechText);
- //
- //       Reprompt reprompt = new Reprompt();
- //       PlainTextOutputSpeech repromptAnswerSpeech = new PlainTextOutputSpeech();
- //       repromptAnswerSpeech.setText("To get the next question, say Alexa, next question");
- //       reprompt.setOutputSpeech(repromptAnswerSpeech);
- //
- //       return SpeechletResponse.newAskResponse(speech, reprompt);
- //  }
-
  public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
      Slot answerSlot = intent.getSlot("Answer");
      String answerValue = answerSlot.getValue();
      String realAnswerValue = answerValue.toLowerCase();
      String speechText = "";
-
+     Integer scoreAttribute = 0;
      if (answerSlot != null)
        {
          if (currentTeamAttribute == teamOneName) {
-           Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
+           scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamOneScore", scoreAttribute);
+      
          } else {
-           Integer scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
+           scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamTwoScore", scoreAttribute);
          }
          speechText = answerHandler.checkIfCorrect(realAnswerValue);
          currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
-
       } else {
          speechText = "Nothing received";
+      }
+
+      if (scoreAttribute >= 10) {
+        speechText = currentTeamAttribute.toString() + " wins!"; 
+
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+        return SpeechletResponse.newTellResponse(speech);
       }
 
        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
