@@ -99,13 +99,11 @@ public class TriviaSmackSpeechlet implements Speechlet {
           // String teamTwoName = "";
           // String currentTeamAttribute = "";
 
-          System.out.println(teamOneAttribute);
           if (teamOneAttribute == null) {
             session.setAttribute("TeamOneName", teamOneNameValue);
             currentTeamAttribute = session.getAttribute("TeamOneName").toString();
           }
-          System.out.println(teamOneAttribute);
-          session.setAttribute("TeamTwoName", teamTwoNameValue);
+          session.setAttribute("TeamTwoName", intent.getSlot("TeamTwo").getValue());
 
           if(session.getAttribute("TeamOneName") != null) {
             if(teamTwoNameSlot != null && teamTwoNameValue != null) {
@@ -114,12 +112,11 @@ public class TriviaSmackSpeechlet implements Speechlet {
               teamTwoName = session.getAttribute("TeamTwoName").toString();
               session.setAttribute("TeamTwoScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-            }
-            else {
+            } else {
               teamOneName = session.getAttribute("TeamOneName").toString();
               session.setAttribute("TeamOneScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-            }
+            } 
           } else {
             speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
           }
@@ -129,19 +126,17 @@ public class TriviaSmackSpeechlet implements Speechlet {
           Reprompt reprompt = new Reprompt();
           reprompt.setOutputSpeech(speech);
           return SpeechletResponse.newAskResponse(speech, reprompt);
-          }
+      }
 
     private SpeechletResponse getQuestionResponse(final Session session) {
      String question = answerHandler.setQuestion();
      SsmlOutputSpeech speech = new SsmlOutputSpeech();
      speech.setSsml(question);
-     System.out.println(speech);
      session.setAttribute("question", speech);
 
      Reprompt reprompt = new Reprompt();
      PlainTextOutputSpeech repromptQuestionSpeech = new PlainTextOutputSpeech();
      repromptQuestionSpeech.setText("Don't forget to answer. Your question was " + speech);
-     System.out.println(speech);
      reprompt.setOutputSpeech(repromptQuestionSpeech);
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
@@ -190,8 +185,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String speechText = "";
 
      if (answerSlot != null)
-       {         System.out.println("printing current team before swap");
-                System.out.println(currentTeamAttribute);
+       {         
          if (currentTeamAttribute == teamOneName) {
            Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamOneScore", scoreAttribute);
@@ -201,8 +195,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
          }
          speechText = answerHandler.checkIfCorrect(realAnswerValue);
          currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
-         System.out.println("printing current team after swap");
-         System.out.println(currentTeamAttribute);
+
       } else {
          speechText = "Nothing received";
       }
