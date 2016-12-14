@@ -136,7 +136,8 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
      Reprompt reprompt = new Reprompt();
      PlainTextOutputSpeech repromptQuestionSpeech = new PlainTextOutputSpeech();
-     repromptQuestionSpeech.setText("Don't forget to answer. Your question was " + speech);
+     String repromptWithQuestion = "Don't forget to answer. Your question was " + question;
+     repromptQuestionSpeech.setText(repromptWithQuestion);
      reprompt.setOutputSpeech(repromptQuestionSpeech);
 
      return SpeechletResponse.newAskResponse(speech, reprompt);
@@ -164,7 +165,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
          if (currentTeamAttribute == teamOneName) {
            scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamOneScore", scoreAttribute);
-      
+
          } else {
            scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamTwoScore", scoreAttribute);
@@ -182,6 +183,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
       if (scoreAttribute >= 2) {
         speechText = winningTeam + " wins!"; 
+
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
