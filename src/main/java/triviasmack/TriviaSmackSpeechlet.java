@@ -57,7 +57,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
             } else {
                 return getQuestionResponse(session);
             }
+
           } else if ("GameSetupIntent".equals(intentName)) {
+            System.out.println("Hello 1");
             return getSetupResponse(intent, session);
           } else if ("AMAZON.HelpIntent".equals(intentName)) {
               return getHelpResponse();
@@ -95,14 +97,12 @@ public class TriviaSmackSpeechlet implements Speechlet {
           String speechText = "";
           Object teamOneAttribute = session.getAttribute("TeamOneName");
           Object teamTwoAttribute = session.getAttribute("TeamTwoName");
-          // String teamOneName = "";
-          // String teamTwoName = "";
-          // String currentTeamAttribute = "";
 
           if (teamOneAttribute == null) {
             session.setAttribute("TeamOneName", teamOneNameValue);
-            currentTeamAttribute = session.getAttribute("TeamOneName").toString();
+            currentTeamAttribute = (String) session.getAttribute("TeamOneName");
           }
+
           session.setAttribute("TeamTwoName", intent.getSlot("TeamTwo").getValue());
 
           if(session.getAttribute("TeamOneName") != null) {
@@ -116,7 +116,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
               teamOneName = session.getAttribute("TeamOneName").toString();
               session.setAttribute("TeamOneScore", 0);
               speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
-            } 
+            }
           } else {
             speechText = teamSetup.setupTeams(teamOneName, teamTwoName);
           }
@@ -185,7 +185,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
      String speechText = "";
 
      if (answerSlot != null)
-       {         
+       {
          if (currentTeamAttribute == teamOneName) {
            Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamOneScore", scoreAttribute);
