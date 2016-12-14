@@ -21,14 +21,14 @@ public void makeQuestionArray(){
     return question;
   }
 
-  public String checkIfCorrect(final String answer) {
+  public String checkIfCorrect(final String answer, String teamOneName, String teamTwoName, String teamOneScore, String teamTwoScore, String currentTeamAttribute) {
     randomAnswer = questionHash.getAnswer(chosenQuestion);
     String correctAnswer = randomAnswer.toLowerCase();
-
+    String answerText = teamOneName + " has " + teamOneScore +". "+ teamTwoName + " has " + teamTwoScore+ ". " + currentTeamAttribute+ " is up next.";
     if (answer.equals(correctAnswer)) {
-          return "The answer is " + randomAnswer + ". You are correct!";
+          return "The answer is " + randomAnswer + ". You are correct! " + answerText;
          } else {
-          return "The answer is " + randomAnswer + ". You are incorrect!";
+          return "The answer is " + randomAnswer + ". You are incorrect! " + answerText;
       }
   }
 

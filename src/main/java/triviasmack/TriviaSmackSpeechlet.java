@@ -168,8 +168,13 @@ public class TriviaSmackSpeechlet implements Speechlet {
            scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamTwoScore", scoreAttribute);
          }
-         speechText = answerHandler.checkIfCorrect(realAnswerValue);
          currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
+
+         String teamOneScores = session.getAttribute("TeamOneScore").toString();
+         String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
+
+         speechText = answerHandler.checkIfCorrect(realAnswerValue, teamOneName, teamTwoName, teamOneScores, teamTwoScores, currentTeamAttribute);
+
       } else {
          speechText = "Nothing received";
       }
