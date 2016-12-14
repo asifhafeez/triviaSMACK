@@ -152,32 +152,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
- // public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
- //     Slot answerSlot = intent.getSlot("Answer");
- //     String answerValue = answerSlot.getValue();
- //     String realAnswerValue = answerValue.toLowerCase();
- //     String speechText = "";
- //     if (answerSlot != null)
- //       {
- //         Integer scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(realAnswerValue);
- //         session.setAttribute("TeamOneScore", scoreAttribute);
- //         speechText = answerHandler.checkIfCorrect(realAnswerValue) + ". Your score is " + String.valueOf(session.getAttribute("TeamOneScore"));
- //
- //      } else {
- //         speechText = "Nothing received";
- //      }
- //
- //       PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
- //       speech.setText(speechText);
- //
- //       Reprompt reprompt = new Reprompt();
- //       PlainTextOutputSpeech repromptAnswerSpeech = new PlainTextOutputSpeech();
- //       repromptAnswerSpeech.setText("To get the next question, say Alexa, next question");
- //       reprompt.setOutputSpeech(repromptAnswerSpeech);
- //
- //       return SpeechletResponse.newAskResponse(speech, reprompt);
- //  }
-
  public SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
      Slot answerSlot = intent.getSlot("Answer");
      String answerValue = answerSlot.getValue();
@@ -193,8 +167,11 @@ public class TriviaSmackSpeechlet implements Speechlet {
            Integer scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(realAnswerValue);
            session.setAttribute("TeamTwoScore", scoreAttribute);
          }
-         speechText = answerHandler.checkIfCorrect(realAnswerValue);
          currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
+         String teamOneScores = session.getAttribute("TeamOneScore").toString();
+         String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
+
+         speechText = answerHandler.checkIfCorrect(realAnswerValue, teamOneName, teamTwoName, teamOneScores, teamTwoScores, currentTeamAttribute);
 
       } else {
          speechText = "Nothing received";
