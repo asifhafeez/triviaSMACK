@@ -141,18 +141,20 @@ public class TriviaSmackSpeechlet implements Speechlet {
   }
  }
 
- private SpeechletResponse getAnswerResponse(final Intent intent, Session session) {
+ private SpeechletResponse winningTeam(String winner, Intent intent, Session session) {
+  String speechText = winner + " win!";
+  PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+  speech.setText(speechText);
+  return SpeechletResponse.newTellResponse(speech);
+ }
+
+ private SpeechletResponse getAnswerResponse(Intent intent, Session session) {
      String speechText = "";
      String winningTeam = currentTeamAttribute;
      speechText = answerChecker(intent, session);
 
       if (scoreAttribute >= 2) {
-        speechText = winningTeam + " wins!";
-
-
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
-        return SpeechletResponse.newTellResponse(speech);
+        return winningTeam(winningTeam, intent, session);
       }
 
        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
