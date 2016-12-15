@@ -115,19 +115,27 @@ public class TriviaSmackSpeechlet implements Speechlet {
      return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
+ private void addScore(Session session, Intent intent) {
+    if (currentTeamAttribute == teamOneName) {
+     scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(intent.getSlot("Answer").getValue().toLowerCase());
+     session.setAttribute("TeamOneScore", scoreAttribute);
+    } else {
+     scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(intent.getSlot("Answer").getValue().toLowerCase());
+     session.setAttribute("TeamTwoScore", scoreAttribute);
+    }
+ }
+
+ private String returnScores(Intent intent, Session session) {
+   currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
+   String teamOneScores = session.getAttribute("TeamOneScore").toString();
+   String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
+   return answerHandler.checkIfCorrect(intent.getSlot("Answer").getValue().toLowerCase(), teamOneName, teamTwoName, teamOneScores, teamTwoScores, currentTeamAttribute);
+ }
+
  private String answerChecker(Intent intent, Session session) {
   if (intent.getSlot("Answer") != null) {
-       if (currentTeamAttribute == teamOneName) {
-         scoreAttribute = (Integer) session.getAttribute("TeamOneScore") + answerHandler.score(intent.getSlot("Answer").getValue().toLowerCase());
-         session.setAttribute("TeamOneScore", scoreAttribute);
-       } else {
-         scoreAttribute = (Integer) session.getAttribute("TeamTwoScore") + answerHandler.score(intent.getSlot("Answer").getValue().toLowerCase());
-         session.setAttribute("TeamTwoScore", scoreAttribute);
-       }
-       currentTeamAttribute = teamSetup.defineUser(currentTeamAttribute, teamOneName, teamTwoName);
-       String teamOneScores = session.getAttribute("TeamOneScore").toString();
-       String teamTwoScores = session.getAttribute("TeamTwoScore").toString();
-       return answerHandler.checkIfCorrect(intent.getSlot("Answer").getValue().toLowerCase(), teamOneName, teamTwoName, teamOneScores, teamTwoScores, currentTeamAttribute);
+       addScore(session, intent);
+       return returnScores(intent, session);
   } else {
      return "Nothing received";
   }
