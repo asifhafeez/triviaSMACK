@@ -29,9 +29,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
-
-            answerHandler.makeQuestionArray();
-
+          answerHandler.makeQuestionArray();
     }
 
     @Override
@@ -182,7 +180,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
       }
 
       if (scoreAttribute >= 2) {
-        speechText = winningTeam + " wins!"; 
+        speechText = winningTeam + " wins!";
 
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
