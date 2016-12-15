@@ -2,6 +2,7 @@ package triviasmack;
 
 import org.junit.Test;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.lang.Object;
 import static org.junit.Assert.*;
 
@@ -9,7 +10,13 @@ import static org.hamcrest.CoreMatchers.*;
 
 
 public class QuestionHashTest {
-
+  @Test
+  public void testGetQuestions(){
+    QuestionHash hash = new QuestionHash();
+    hash.getQuestions();
+    int hashSize = hash.questions.size();
+    assertEquals(33, hashSize);
+  }
   @Test
   public void testGetQuestionArray(){
     QuestionHash hash = new QuestionHash();
@@ -36,7 +43,7 @@ public class QuestionHashTest {
 
   }
   @Test
-  public void testAnswer(){
+  public void testQuestionRemoved(){
 
     QuestionHash hash = new QuestionHash();
     hash.getQuestionArray();
