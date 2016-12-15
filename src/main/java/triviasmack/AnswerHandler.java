@@ -28,10 +28,14 @@ public class AnswerHandler {
 
   public String verifyAnswer(final String answer, String correctAnswer, String answerText){
     if (answer.equals(correctAnswer)) {
-      return "The answer is " + correctAnswer + ". You are correct" + answerText;
+      return getAlexaAnswer(correctAnswer, "correct", answerText);
     } else {
-      return "The answer is " + correctAnswer + ". You are incorrect" + answerText;
+      return getAlexaAnswer(correctAnswer, "incorrect", answerText);
     }
+  }
+
+  public String getAlexaAnswer(String correctAnswer, String validation, String answerText){
+    return "The answer is " + correctAnswer + ". You are " + validation + "! " + answerText;
   }
 
 
