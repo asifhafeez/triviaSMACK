@@ -81,7 +81,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
 
  private SpeechletResponse getWelcomeResponse() {
 
-  String speechText = "Welcome to Trivia Smack, your gateway quiz!";
+  String speechText = "Welcome to Trivia Smack, your gateway quiz! Please say game setup to start quiz.";
   return getSpeechlet(speechText, speechText);
  }
 

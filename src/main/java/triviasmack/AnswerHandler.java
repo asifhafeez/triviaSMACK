@@ -22,7 +22,7 @@ public class AnswerHandler {
 
   public String checkIfCorrect(final String answer, String teamOneName, String teamTwoName, String teamOneScore, String teamTwoScore, String currentTeamAttribute) {
     String correctAnswer = getCorrectAnswer();
-    String answerText = teamOneName + " has " + teamOneScore +". "+ teamTwoName + " has " + teamTwoScore+ ". " + currentTeamAttribute+ " is up next.";
+    String answerText = teamOneName + " has " + teamOneScore +". "+ teamTwoName + " has " + teamTwoScore+ ". " + currentTeamAttribute+ " is up next. Say next question to get the next question";
     return verifyAnswer(answer, correctAnswer, answerText);
   }
 
