@@ -41,29 +41,37 @@ public class TriviaSmackSpeechlet implements Speechlet {
   return getWelcomeResponse();
  }
 
- @Override
- public SpeechletResponse onIntent(final IntentRequest request, final Session session)
- throws SpeechletException {
-
-  Intent intent = request.getIntent();
-  String intentName = (intent != null) ? intent.getName() : null;
-  if ("FailedIntent".equals(intentName)) {
-   return incorrectUtterance(session);
-  } else if ("TriviaSmackIntent".equals(intentName)) {
-   Slot answerSlot = intent.getSlot("Answer");
+ private SpeechletResponse callTriviaSmackIntent(Intent intent, Session session) {
+  Slot answerSlot = intent.getSlot("Answer");
    String answerValue = answerSlot.getValue();
    if (answerSlot != null && answerValue != null) {
     return getAnswerResponse(intent, session);
    } else {
     return getQuestionResponse(session);
    }
+ }
 
+ private SpeechletResponse checkIntent(String intentName, Session session, Intent intent) {
+  if ("TriviaSmackIntent".equals(intentName)) {
+   return callTriviaSmackIntent(intent, session);
   } else if ("GameSetupIntent".equals(intentName)) {
    return getSetupResponse(intent, session);
   } else if ("AMAZON.HelpIntent".equals(intentName)) {
    return getHelpResponse();
   } else if ("AMAZON.RepeatIntent".equals(intentName)) {
    return getRepeatResponse(intent, session);
+  } else {
+   return incorrectUtterance(session);
+  }
+ }
+
+ @Override
+ public SpeechletResponse onIntent(final IntentRequest request, final Session session)
+ throws SpeechletException {
+  Intent intent = request.getIntent();
+  String intentName = (intent != null) ? intent.getName() : null;
+  if (intentName != null) {
+   return checkIntent(intentName, session, intent);
   } else {
    throw new SpeechletException("Invalid Intent");
   }
