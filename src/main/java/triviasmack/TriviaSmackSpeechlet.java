@@ -30,9 +30,7 @@ public class TriviaSmackSpeechlet implements Speechlet {
  @Override
  public void onSessionStarted(final SessionStartedRequest request, final Session session)
  throws SpeechletException {
-
   answerHandler.makeQuestionArray();
-
  }
 
  @Override
@@ -109,7 +107,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
   return SpeechletResponse.newAskResponse(speech, reprompt);
  }
 
-
  private SpeechletResponse getRepeatResponse(Intent intent, Session session) {
   SsmlOutputSpeech speech = (SsmlOutputSpeech) session.getAttribute("question");
 
@@ -134,11 +131,9 @@ public class TriviaSmackSpeechlet implements Speechlet {
   return getSpeechlet(speechText, speechText);
  }
 
-
  private SpeechletResponse getHelpResponse() {
   String speechText = "You can ask me to start a quiz!";
   return getSpeechlet(speechText, speechText);
-
  }
 
  private SpeechletResponse getSpeechlet(String speechText, String repromptText) {
@@ -150,8 +145,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
   speech.setText(speechText);
   return SpeechletResponse.newAskResponse(speech, reprompt);
  }
-
-
 
  private void setTeamAttributes(Intent intent, Session session) {
   if (session.getAttribute("TeamOneName") == null) {
@@ -182,7 +175,6 @@ public class TriviaSmackSpeechlet implements Speechlet {
   session.setAttribute("TeamOneScore", 0);
   return teamSetup.setupTeams(teamOneName, teamTwoName);
  }
-
 
  private String teamTwoSetup(Session session) {
   teamTwoName = session.getAttribute("TeamTwoName").toString();

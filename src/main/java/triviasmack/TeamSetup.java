@@ -2,7 +2,7 @@ package triviasmack;
 
 public class TeamSetup {
 
- public String setupTeams(String teamOne, String teamTwo){
+  public String setupTeams(String teamOne, String teamTwo){
     String speech = "";
     if (teamOne.isEmpty()) {
       speech = "Game setup. You can choose either pandas, chickens, dolphins, or Asif for your team name. What is the name of team one?";
@@ -15,15 +15,11 @@ public class TeamSetup {
   }
 
   public String defineUser(String currentTeamAttribute, String teamOneName, String teamTwoName){
-    System.out.println("Check for teamOneName");
-    System.out.println(teamOneName);
-    System.out.println("Check for teamTwoName");
-    System.out.println(teamTwoName);
-      if (currentTeamAttribute == teamOneName) {
-        currentTeamAttribute = teamTwoName;
-      } else {
-        currentTeamAttribute = teamOneName;
-      }
-      return currentTeamAttribute;
+    if (currentTeamAttribute == teamOneName) {
+      currentTeamAttribute = teamTwoName;
+    } else {
+      currentTeamAttribute = teamOneName;
     }
+    return currentTeamAttribute;
+  }
 }
