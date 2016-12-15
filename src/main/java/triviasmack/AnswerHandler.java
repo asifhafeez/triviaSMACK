@@ -10,7 +10,7 @@ public class AnswerHandler {
   String randomAnswer = "";
 
   public void makeQuestionArray(){
-    questionHash.getQuestionArray();
+    questionHash.getQuestions();
   }
 
   public String setQuestion(){
@@ -37,7 +37,6 @@ public class AnswerHandler {
   public String getAlexaAnswer(String correctAnswer, String validation, String answerText){
     return "The answer is " + correctAnswer + ". You are " + validation + "! " + answerText;
   }
-
 
   public Integer score(String answer) {
     String correctAnswer = getCorrectAnswer();

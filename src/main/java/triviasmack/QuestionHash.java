@@ -10,7 +10,7 @@ import java.io.*;
 public class QuestionHash {
 
   HashMap<String, String> questions = new HashMap<String, String>();
-  ArrayList<String> questionsAsArray = new ArrayList<String>();
+  ArrayList<String> questionsAsArray;
   String randomQuestion = "";
 
   public HashMap getQuestions(){
@@ -47,45 +47,15 @@ public class QuestionHash {
     questions.put("What is the tallest mountain on the British Isles?", "Ben Nevis");
     questions.put("What is the collective noun for a group of flamingos?", "Flamboyance");
     questions.put("What is the largest state in the yew ess ay?", "Alaska");
+    questionsAsArray = getQuestionArray();
     return questions;
   }
 
   public ArrayList getQuestionArray() {
-    questionsAsArray.add("What won the oscar for best picture in ninteen ninety seven?");
-    questionsAsArray.add("What is the capital of England?");
-    questionsAsArray.add("What Castle housed Radio one's big weekend in two thousand and sixteen?");
-    questionsAsArray.add("Which dee eye why brand was bought by the Focus Group in two thousand?");
-    questionsAsArray.add("According to Bart Simpson, what do you not make with salad?");
-    questionsAsArray.add("What is the name of Henry the eighth's warship");
-    questionsAsArray.add("How many fingers am I holding up?");
-    questionsAsArray.add("What person am I thinking of?");
-    questionsAsArray.add("Which Ford played Indiana Jones and Han Solo");
-    questionsAsArray.add("According to Justin Bieber, what might it be too late to say");
-    questionsAsArray.add("What is Frankie Bell's favourite drink?");
-    questionsAsArray.add("The duke of what was voted the fourteenth greatest Briton of all time?");
-    questionsAsArray.add("In what year was Israel founded?");
-    questionsAsArray.add("What is the collective noun for a group of owls?");
-    questionsAsArray.add("What is the name of the only ay eye to have passed the Turing Test?");
-    questionsAsArray.add("In ancient Greek mythology, what river did the souls of the dead have to cross?");
-    questionsAsArray.add("Who wrote the Tale of Peter Rabbit?");
-    questionsAsArray.add("What is the largest living species of bird that can fly?");
-    questionsAsArray.add("Who painted the Birth of Venus?");
-    questionsAsArray.add("Which of Henry the eighth’s wives gave birth to Edward the sixth?");
-    questionsAsArray.add("What is the tallest mountain on the British Isles?");
-    questionsAsArray.add("What is the collective noun for a group of flamingos?");
-    questionsAsArray.add("What is the largest state in the yew ess ay?");
-    questionsAsArray.add("In which country was the first FIFA World Cup held?");
-    questionsAsArray.add("What is the world's only flightless parrot called?");
-    questionsAsArray.add("How many bricks to the face does Marv take in Home Alone Two?");
-    questionsAsArray.add("Which artist has spent the most number of weeks at number one in the UK music charts with the song I believe?");
-    questionsAsArray.add("Who is widely credited as being the first ever computer programmer?");
-    questionsAsArray.add("A score of three hundred and ninety two is the highest single word score ever recorded in an English scrabble championship, what is the word?");
-    questionsAsArray.add("Which body of water is regarded as the worlds largest lake?");
-    questionsAsArray.add("Who ruled France for sixty seven years between eleven thirty seven and twelve oh four, the longest ruling female in history?");
-    questionsAsArray.add("Who is Snoopees best friend?");
-    questionsAsArray.add("Complete the lyric: Its true wherever you find love it feels like?");
-    return questionsAsArray;
+    ArrayList<String> questionArray = new ArrayList<String>(questions.keySet());
+    return questionArray;
   }
+
 
   public String randomQuestion() {
     Random random = new Random();
@@ -96,8 +66,6 @@ public class QuestionHash {
   }
 
   public String getAnswer(final String randomQuestion){
-    getQuestions();
-    String answer = questions.get(randomQuestion);
-    return answer;
+    return questions.get(randomQuestion);
   }
 }
